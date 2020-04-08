@@ -6,7 +6,6 @@ from read2array import read2array
 
 
 """Driver script to convert all reads in reads directory into images
-Also generates txt file with labels
 
 Usage: python get_images.py ../data/mason_reads ../data/images
 
