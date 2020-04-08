@@ -30,11 +30,19 @@ Simulate Illumina reads using mason simulator
 bash simulate_reads_mason.sh
 ```
 
-## Covert reads into 2D images
+## Convert reads into 2D images
 Code is in `read2array`
 
 ```
 python get_images.py ../data/mason_reads ../data/images
 ```
+
+Reads belonging to a species are saved as array. Each row is the flattened image transformation of the read.
+
+e.g.
+
+Species A has 300 reads of length 150. After running read2array the corresponding image is 141x141. This script will save the 300 images as a 300x19881 numpy array (141x141=19881)
+
+The data array for each species is saved in `data/images`
 
 ## Train CNN
