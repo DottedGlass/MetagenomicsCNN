@@ -35,7 +35,7 @@ if not os.path.exists(images_dir):
 reads_files = [f for f in os.listdir(reads_dir) if f.endswith('.fa')]
 
 # TODO: Parallelize this for loop
-for f in read_files:
+for f in reads_files:
     print(f)
 
     reads = list(SeqIO.parse(os.path.join(reads_dir,f),"fasta"))
