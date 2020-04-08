@@ -44,7 +44,7 @@ def read2num(read,kmer_length):
     read : str
         A read from shotgun sequencing. Bases must be A, C, G, or T.
     kmer_length: int
-        Length of kmers used for encoding read into base
+        Length of kmers used for encoding read into numbers
 
     Returns
     -------
@@ -59,14 +59,21 @@ def read2num(read,kmer_length):
         # split into kmers
         kmer = read[i:i+kmer_length]
 
-        # convert to base 4 num
-        kmer_base4 = "".join([nt2int[b] for b in kmer])
+        if 'N' in kmer:
+            # handles case when kmer has unknown base
+            kmer_base4 = '1' + "".join(['0']*(kmer_length-1))
+            kmer_num = -int(kmer_base4,base=4)
+        else:
+            # convert to base 4 num
+            kmer_base4 = "".join([nt2int[b] for b in kmer])
 
-        # convert to base 10 number
-        kmer_num = int(kmer_base4,base=4)
+            # convert to base 10 number
+            kmer_num = int(kmer_base4,base=4)
+
         time_series.append(kmer_num)
 
     return np.array(time_series)
+
 
 def getGAF(x):
     """Converts time series into GAF
