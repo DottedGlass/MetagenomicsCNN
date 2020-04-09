@@ -1,0 +1,15 @@
+name: metagenomics
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.7
+  - seaborn
+  - scikit-learn
+  - biopython
+  - mason
+  - torchvision
+  - pytorch
+  - cudatoolkit=9.2
+
