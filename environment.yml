@@ -12,4 +12,5 @@ dependencies:
   - torchvision
   - pytorch
   - cudatoolkit=9.2
+  - ipykernel
 
