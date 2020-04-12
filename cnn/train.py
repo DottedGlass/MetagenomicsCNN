@@ -7,25 +7,41 @@ import torchvision.transforms as transforms
 import matplotlib.pyplot as plt
 import torch.optim as optim
 from cnn import Net
+import os
 
 
-PATH = './cifar_net.pth'
+PATH = '../data/images'
+TEST_SIZE = 10
+image_size = 141
 
-transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,0.5,0.5),(0.5,0.5,0.5))])
+transform = transforms.Compose([transforms.ToTensor()])
 
-trainset = torchvision.datasets.CIFAR10(root='./data', train=True, download=True, transform=transform)
+files = os.listdir(PATH)
+classes = [f.split('.'[0]) for f in files]
+
+# retrieve the data from each file
+# except the first 10, load the rest
+class TrainSet(torch.utils.data.Dataset):
+	def __init__(self, filepath, test_size, transform=None):
+		self.data = []
+		self.transform = transform
+		files = os.listdir(filepath)
+		for i, f in enumerate(files):
+			dat = np.load(filepath + '/' + f)[test_size:]
+			for d in dat:
+				t = d.reshape(image_size, -1)
+				self.data.append( (t, i) )
+
+	def __len__(self):
+		return len(self.data)
+	def __getitem__(self, idx):
+		sample, label = self.data[idx]
+		if self.transform:
+			sample = self.transform(sample)
+		return sample, label
+
+trainset = TrainSet(PATH, TEST_SIZE, transform=transform)
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=4, shuffle=True, num_workers=2)
-
-classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
-
-def imshow(img):
-	img = img / 2 + 0.5 
-	npimg = img.numpy()
-	plt.imshow(np.transpose(npimg, (1,2,0)))
-	plt.show()
-
-dataiter = iter(trainloader)
-images, labels = dataiter.next()
 
 net = Net()
 
