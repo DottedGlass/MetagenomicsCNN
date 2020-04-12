@@ -51,6 +51,9 @@ def read2num(read,kmer_length):
     numpy.array
     """
 
+    # remove unknown bases with A
+    read = read.replace('N','A')
+
     num_kmers = len(read) - kmer_length + 1
     nt2int = {'A':'0', 'C':'1', 'G':'2', 'T':'3'}
     time_series = []
@@ -59,16 +62,11 @@ def read2num(read,kmer_length):
         # split into kmers
         kmer = read[i:i+kmer_length]
 
-        if 'N' in kmer:
-            # handles case when kmer has unknown base
-            kmer_base4 = '1' + "".join(['0']*(kmer_length-1))
-            kmer_num = -int(kmer_base4,base=4)
-        else:
-            # convert to base 4 num
-            kmer_base4 = "".join([nt2int[b] for b in kmer])
+        # convert to base 4 num
+        kmer_base4 = "".join([nt2int[b] for b in kmer])
 
-            # convert to base 10 number
-            kmer_num = int(kmer_base4,base=4)
+        # convert to base 10 number
+        kmer_num = int(kmer_base4,base=4)
 
         time_series.append(kmer_num)
 
