@@ -11,7 +11,7 @@ import os
 
 
 PATH = '../data/images'
-TEST_SIZE = 10
+TEST_SIZE = 20
 image_size = 141
 
 transform = transforms.Compose([transforms.ToTensor()])
@@ -44,7 +44,6 @@ trainset = TrainSet(PATH, TEST_SIZE, transform=transform)
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=4, shuffle=True, num_workers=2)
 
 net = Net()
-
 # define loss function and optimizer
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
@@ -54,7 +53,7 @@ for epoch in range(2):
 	for i, data in enumerate(trainloader, 0):
 		inputs, labels = data
 		optimizer.zero_grad()
-		outputs = net(inputs)
+		outputs = net(inputs.float())
 		loss = criterion(outputs, labels)
 		loss.backward()
 		optimizer.step()
@@ -65,4 +64,4 @@ for epoch in range(2):
 			running_loss = 0.0
 print('Finished training')
 
-torch.save(net.state_dict(), PATH)
+torch.save(net.state_dict(), "./genomics_cnn.pth")
