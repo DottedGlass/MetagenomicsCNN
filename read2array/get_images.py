@@ -46,7 +46,7 @@ for f in reads_files:
     data_array = np.zeros((nrow,ncol))
 
     for i in range(len(reads)):
-        img = read2array(reads[i].seq, kmer_length=args.kmer_length, array_type=args.array_type)
+        img = read2array(str(reads[i].seq), kmer_length=args.kmer_length, array_type=args.array_type)
         data_array[i,:] = img.flatten()
 
     array_file_name = os.path.splitext(f)[0]

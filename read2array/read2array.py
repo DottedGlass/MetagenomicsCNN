@@ -9,6 +9,7 @@ Workshops at the Twenty-Ninth AAAI Conference on Artificial Intelligence. 2015.
 
 import sys
 import numpy as np
+from pyts.image import GramianAngularField
 
 def read2array(read, kmer_length=1, array_type='GAF'):
     """Converts a string into an array.
@@ -33,7 +34,8 @@ def read2array(read, kmer_length=1, array_type='GAF'):
     time_series = read2num(read,kmer_length)
 
     if array_type == 'GAF':
-        array = getGAF(time_series)
+        GAF = GramianAngularField(method='summation')
+        array = GAF.fit_transform(time_series)
 
     return array
 
@@ -71,39 +73,6 @@ def read2num(read,kmer_length):
         time_series.append(kmer_num)
 
     return np.array(time_series)
-
-
-def getGAF(x):
-    """Converts time series into GAF
-
-    Parameters
-    ----------
-    X : numpy.array
-        1D numpy array with integers encoding the nucleotide bases
-
-    Returns
-    -------
-    numpy.array
-        GAF matrix
-    """
-
-    # rescale X to be [-1,1]
-    x_max = np.max(x)
-    x_min = np.min(x)
-
-    x_scal = (2*x - x_max - x_min) / (x_max - x_min)
-
-    # polar encoding
-    phi = np.arccos(x_scal)
-
-    # compute GAF with phi
-    N = len(phi)
-    GAF = np.zeros((N,N))
-    for i in range(N):
-        for j in range(N):
-            GAF[i,j] = np.cos(phi[i]+phi[j])
-
-    return GAF
 
 # TODO: encode k-mers into integers intead of 1-mers
 # e.g. 2-mers can be encoded into 16 integers
