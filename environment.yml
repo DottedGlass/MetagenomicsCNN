@@ -13,4 +13,6 @@ dependencies:
   - pytorch
   - cudatoolkit=9.2
   - ipykernel
+  - pyts
+  - numba
 
