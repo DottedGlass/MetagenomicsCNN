@@ -1,11 +1,11 @@
 #!/usr/bin/env Rscript
 # reads simulator for nanopore sequencing
-nanopore_simulator = function(genomefile, reads, readlength, err, read_output,align_output, error_output){
+nanopore_simulator = function(genomefile, num_reads, readlength, err, read_output,align_output, error_output){
     raw_data = readLines(genomefile) # load data
     genome = paste(raw_data[-1], collapse = "") # ignore the description of data in first line and transfer data into one long string
     circlegenome = paste(genome,substr(genome, 1, readlength), sep='') # add last few fake base to imitate the circle genome
     length = nchar(genome) # get the genome length
-    read_start = sample(length, reads, replace = T) # select read start position randomly
+    read_start = sample(length, num_reads, replace = T) # select read start position randomly
     perfect_simulate = sapply(read_start, function(x){substr(circlegenome, x, x+readlength-1)}) # the "perfect" reads without error
     perfect_reads = paste(perfect_simulate, collapse = "") # transfer perfect reads into one long string
     error_position = sample(nchar(perfect_reads),floor(nchar(perfect_reads)*err)) # select error position randomly
@@ -39,4 +39,25 @@ nanopore_simulator = function(genomefile, reads, readlength, err, read_output,al
     print(paste("results have saved as", read_output, align_output, ", and", error_output, sep = ' '))
 }
 
-nanopore_simulator("RefSeq/NC_004113.fasta", 100000, 6000, 0.05, "NC_004113reads.txt", "NC_004113align.txt", "NC_004113err.txt")
+# list of species
+species_list <- c('NZ_CP009261', 'NZ_LN832404', 'NC_018621', 'NC_014494', 'NC_004113', 'NC_009515', 'NC_023013', 'NC_009033', 'NC_020246', 'NC_014374')
+
+# directories
+out_dir <- "../data/long_reads_simulated"
+refseq_dir <- "../data/RefSeq/"
+
+# simulation parameters
+num_reads <- 100000
+readlength <- 6000
+error_rate <- 0.01
+
+#  run simulations
+for (species in species_list) {
+  genome_file <- paste0(refseq_dir,species,".fasta")
+  sim_reads_file <- paste0(out_dir,species,".reads.",readlength,"bp.fasta")
+  align_file <- paste0(out_dir,species,".align.",readlength,".txt")
+  error_file <- paste0(out_dir,species,".error.",readlength,".txt")
+
+  nanopore_simulator(genome_file, num_reads, readlength, error_rate, sim_reads_file, align_file, error_file)
+
+}
