@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # list of references to simulate reads from
-declare -a StringArray=("NZ_CP009261" "NZ_LN832404" "NC_018621" "NC_014494" "NC_004113" "NC_009515" "NC_023013" "NC_009033" "NC_020246" "NC_014374")
+declare -a StringArray=("NC_010117" "NZ_LN832404" "NC_018621" "NC_014494" "NC_004113" "NC_009515" "NC_023013" "NC_008698" "NC_020246" "NC_014374")
 
 # length of reads
 LENGTH=150
