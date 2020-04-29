@@ -30,10 +30,7 @@ class TrainSet(torch.utils.data.Dataset):
 		for i, f in enumerate(files):
 			dat = np.load(filepath + '/' + f)[test_size:]
 			for d in dat:
-				# t = d.reshape(image_size, -1)
-				print(d.shape)
-				sys.exit(0)
-				self.data.append( (t, i) )
+				self.data.append( (d, i) )
 
 	def __len__(self):
 		return len(self.data)
