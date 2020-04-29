@@ -27,6 +27,7 @@ parser.add_argument('--kmer_length', default=10, help='Length of kmers used for 
 parser.add_argument('--array_type', default='GAF', help="Specifies type of array the read will be encoded in. 'GAF' denotes Gramian Angular Field 'MTF' denotes Markov Transition Fields")
 args = parser.parse_args()
 
+kmer_length = int(args.kmer_length)
 reads_dir = args.indir
 images_dir = args.outdir + '/' + os.path.basename(reads_dir) + '/'
 if not os.path.exists(images_dir):
@@ -46,13 +47,13 @@ for f in reads_files:
     reads = list(SeqIO.parse(os.path.join(reads_dir,f),"fasta"))
 
     nrow = len(reads)
-    num_kmers = len(reads[0].seq) - args.kmer_length + 1
+    num_kmers = len(reads[0].seq) - kmer_length + 1
 
     # convert reads into numeric encoding
     print("Encoding reads as time series")
     numeric_reads = []
     for i in range(len(reads)):
-        numeric_reads.append(read2num(str(reads[i].seq), kmer_length=args.kmer_length))
+        numeric_reads.append(read2num(str(reads[i].seq), kmer_length=kmer_length))
 
     numeric_reads = np.array(numeric_reads)
 
