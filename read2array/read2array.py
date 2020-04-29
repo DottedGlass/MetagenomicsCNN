@@ -77,8 +77,32 @@ def read2num(read,kmer_length):
 
     return np.array(time_series)
 
-# TODO: encode k-mers into integers intead of 1-mers
-# e.g. 2-mers can be encoded into 16 integers
+def onehot_encode(read):
+    """Converts the read into 1 hot encoding. Returns a (4,len(read)) array.
+    Row 1 corresponds to A
+    Row 2 corresponds to C
+    Row 3 corresponds to G
+    Row 4 corresponds to T
+
+    Parameters
+    ----------
+    read : str
+        A read from shotgun sequencing. Bases must be A, C, G, or T.
+
+    Returns
+    -------
+    numpy.array
+    """
+
+    onehot = np.zeros((4,len(read)))
+
+    for i, bp in enumerate(read):
+        if bp == 'A': onehot[0,i] = 1
+        if bp == 'C': onehot[1,i] = 1
+        if bp == 'G': onehot[2,i] = 1
+        if bp == 'T': onehot[3,i] = 1
+
+    return onehot
 
 ## TODO: implement piecewise aggregation approximation to smooth the time
 # series, reducing size of GAF output matrix
