@@ -36,6 +36,11 @@ Simulate Illumina reads using mason simulator
 bash simulate_reads_mason.sh
 ```
 
+Simulate Nanopore reads
+```
+python nanopore_simulator.py
+```
+
 ## Convert reads into 2D images
 Code is in `read2array`
 
