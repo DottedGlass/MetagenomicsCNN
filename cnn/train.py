@@ -31,7 +31,7 @@ class TrainSet(torch.utils.data.Dataset):
 			dat = np.load(filepath + '/' + f)[test_size:]
 			for d in dat:
 				# t = d.reshape(image_size, -1)
-				print(t.shape)
+				print(d.shape)
 				sys.exit(0)
 				self.data.append( (t, i) )
 
