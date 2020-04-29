@@ -54,7 +54,7 @@ def nanopore_simulator(genome_file, num_reads, readlength, error_rate, sim_reads
         sequences.append(SeqRecord(sim_seq, id=id, name="", description=""))
 
     # save as fasta
-    SeqIO.write(squences, sim_reads_file, "fasta")
+    SeqIO.write(sequences, sim_reads_file, "fasta")
 
     print("simulation complete:",sim_reads_file)
 
@@ -70,7 +70,7 @@ if __name__ == "__main__":
     num_reads = 100000
     readlength = 6000
     error_rate = 0.01
-    out_dir = "../data/long_reads_simulated/"
+    out_dir = "../data/long_reads/read_" + str(readlength) + "_error_" + str(error_rate) +  '/'
 
     # save simulation paramters to text file
     if not os.path.exists(out_dir): # create output directory if it already doesn't exist
