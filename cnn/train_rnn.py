@@ -9,10 +9,10 @@ import torch.optim as optim
 from rnn import RNN
 import os
 
-
+# change the PATH to rnn data
 PATH = '../data/images'
 TEST_SIZE = 20
-image_size = 141
+onehot_size = 4
 
 transform = transforms.Compose([transforms.ToTensor()])
 
@@ -29,7 +29,7 @@ class TrainSet(torch.utils.data.Dataset):
 		for i, f in enumerate(files):
 			dat = np.load(filepath + '/' + f)[test_size:]
 			for d in dat:
-				t = d.reshape(image_size, -1)
+				t = d.reshape(-1, onehot_size)
 				self.data.append( (t, i) )
 
 	def __len__(self):
