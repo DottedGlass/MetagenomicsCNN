@@ -50,6 +50,8 @@ net.load_state_dict(torch.load(CNN_FILE))
 
 correct = 0
 total = 0
+label_list = []
+label_correct = []
 with torch.no_grad():
 	for data in testloader:
 		inputs, labels = data
@@ -57,4 +59,12 @@ with torch.no_grad():
 		_, predicted = torch.max(outputs.data, 1)
 		total += labels.size(0)
 		correct += (predicted == labels).sum().item()
+
+		label_list.append(labels)
+		label_correct.append((predicted == labels).sum().item())
+
 print('Accuracy of the network on the test images: %d %%' % (100 * correct / total))
+
+print('Accuracy by label')
+for l,c in zip(labels_list,label_correct):
+	print(l,":",str(c/TEST_SIZE))
