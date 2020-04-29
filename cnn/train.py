@@ -11,7 +11,7 @@ from cnn import Net
 import os
 
 
-PATH = '../data/images/read_500_error_0.01'
+PATH = '../data/images/read_1000_error_0.01'
 TEST_SIZE = 20
 image_size = 141
 
