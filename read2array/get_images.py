@@ -45,6 +45,7 @@ for f in reads_files:
     num_kmers = len(reads[0].seq) - args.kmer_length + 1
 
     # convert reads into numeric encoding
+    print("Encoding reads as time series")
     numeric_reads = []
     for i in range(len(reads)):
         numeric_reads.append(read2num(str(reads[i].seq), kmer_length=args.kmer_length))
@@ -52,6 +53,7 @@ for f in reads_files:
     numeric_reads = np.array(numeric_reads)
 
     # GAF conversion
+    print("Converting time series into image")
     gasf = GramianAngularField(method='summation')
     gaf = gasf.fit_transform(numeric_reads)
 
