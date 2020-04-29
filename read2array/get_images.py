@@ -36,6 +36,10 @@ if not os.path.exists(images_dir):
 reads_files = [f for f in os.listdir(reads_dir) if f.endswith('.fa')]
 
 # TODO: Parallelize this for loop
+print("processing files")
+print("----------------")
+print(reads_files)
+print("----------------")
 for f in reads_files:
     print(f)
 
