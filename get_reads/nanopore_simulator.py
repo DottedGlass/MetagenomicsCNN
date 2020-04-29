@@ -16,7 +16,7 @@ def nanopore_simulator(genome_file, num_reads, readlength, error_rate, sim_reads
 
     # read in reference genome
     genome = str(list(SeqIO.parse(genome_file,"fasta"))[0].seq)
-    num_errored_bases = int(np.rint(len(genome)*error_rate))
+    num_errored_bases = int(np.rint(readlength*error_rate))
 
     # modify for circular genome
     if circular:
