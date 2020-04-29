@@ -66,5 +66,5 @@ with torch.no_grad():
 print('Accuracy of the network on the test images: %d %%' % (100 * correct / total))
 
 print('Accuracy by label')
-for l,c in zip(labels_list,label_correct):
+for l,c in zip(label_list,label_correct):
 	print(l,":",str(c/TEST_SIZE))
