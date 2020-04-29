@@ -1,3 +1,4 @@
+import sys
 import numpy as np
 import torch
 import torch.nn as nn
@@ -10,7 +11,7 @@ from cnn import Net
 import os
 
 
-PATH = '../data/images'
+PATH = '../data/images/read_500_error_0.01'
 TEST_SIZE = 20
 image_size = 141
 
@@ -20,7 +21,7 @@ files = os.listdir(PATH)
 classes = [f.split('.'[0]) for f in files]
 
 # retrieve the data from each file
-# except the first 10, load the rest
+# except the first TEST_SIZE, load the rest
 class TrainSet(torch.utils.data.Dataset):
 	def __init__(self, filepath, test_size, transform=None):
 		self.data = []
@@ -29,7 +30,9 @@ class TrainSet(torch.utils.data.Dataset):
 		for i, f in enumerate(files):
 			dat = np.load(filepath + '/' + f)[test_size:]
 			for d in dat:
-				t = d.reshape(image_size, -1)
+				# t = d.reshape(image_size, -1)
+				print(t.shape)
+				sys.exit(0)
 				self.data.append( (t, i) )
 
 	def __len__(self):
