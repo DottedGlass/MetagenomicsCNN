@@ -71,7 +71,7 @@ if __name__ == "__main__":
 
     # directories
     refseq_dir = "../data/RefSeq/"
-    num_reads = 5000
+    num_reads = 1000
     readlength = 1000
     error_rate = 0.01
     out_dir = "../data/long_reads/read_" + str(readlength) + "_error_" + str(error_rate) +  '/'
