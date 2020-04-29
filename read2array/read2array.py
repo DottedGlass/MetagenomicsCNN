@@ -55,6 +55,9 @@ def read2num(read,kmer_length):
 
     # remove unknown bases with A
     read = read.replace('N','A')
+    read = read.replace('K','A')
+    read = read.replace('R','A')
+    read = read.replace('Y','A') ## TODO: need to generalize to all unknown bases
 
     num_kmers = len(read) - kmer_length + 1
     nt2int = {'A':'0', 'C':'1', 'G':'2', 'T':'3'}
