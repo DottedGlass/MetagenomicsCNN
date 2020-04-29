@@ -43,8 +43,12 @@ def nanopore_simulator(genome_file, num_reads, readlength, error_rate, sim_reads
             # replace original nt with the nt that comes after alphabetically
             cur_error_pos = error_position[j]
             orig_nt = sim_read[cur_error_pos]
-            error_nt_int = (nt2int[orig_nt]+1) % 4
-            error_nt = int2nt[error_nt_int]
+
+            if orig_nt not in 'ACGT': # set unknown bases to A
+                error_nt = 'A'
+            else:
+                error_nt_int = (nt2int[orig_nt]+1) % 4
+                error_nt = int2nt[error_nt_int]
 
             sim_read = sim_read[:cur_error_pos] + error_nt + sim_read[(cur_error_pos+1):]
 
