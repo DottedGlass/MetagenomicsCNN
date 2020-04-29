@@ -9,7 +9,7 @@ import torch.optim as optim
 from cnn import Net
 import os
 
-PATH = '../data/images/'
+PATH = '../data/images/read_500_error_0.01'
 TEST_SIZE = 20
 CNN_FILE = './genomics_cnn.pth'
 transform = transforms.Compose([transforms.ToTensor()])
@@ -28,8 +28,7 @@ class TestSet(torch.utils.data.Dataset):
 		for i, f in enumerate(files):
 			dat = np.load(filepath + '/' + f)[:test_size]
 			for d in dat:
-				t = d.reshape(image_size, -1)
-				self.data.append( (t, i) )
+				self.data.append( (d, i) )
 
 	def __len__(self):
 		return len(self.data)
