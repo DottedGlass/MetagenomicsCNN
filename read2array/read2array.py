@@ -78,11 +78,11 @@ def read2num(read,kmer_length):
     return np.array(time_series)
 
 def onehot_encode(read):
-    """Converts the read into 1 hot encoding. Returns a (4,len(read)) array.
-    Row 1 corresponds to A
-    Row 2 corresponds to C
-    Row 3 corresponds to G
-    Row 4 corresponds to T
+    """Converts the read into 1 hot encoding. Returns a (len(read),4) array.
+    Col 1 corresponds to A
+    Col 2 corresponds to C
+    Col 3 corresponds to G
+    Col 4 corresponds to T
 
     Parameters
     ----------
@@ -94,13 +94,13 @@ def onehot_encode(read):
     numpy.array
     """
 
-    onehot = np.zeros((4,len(read)))
+    onehot = np.zeros((len(read),4))
 
     for i, bp in enumerate(read):
-        if bp == 'A': onehot[0,i] = 1
-        if bp == 'C': onehot[1,i] = 1
-        if bp == 'G': onehot[2,i] = 1
-        if bp == 'T': onehot[3,i] = 1
+        if bp == 'A': onehot[i,0] = 1
+        if bp == 'C': onehot[i,1] = 1
+        if bp == 'G': onehot[i,2] = 1
+        if bp == 'T': onehot[i,3] = 1
 
     return onehot
 
