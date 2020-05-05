@@ -89,6 +89,8 @@ if __name__ == "__main__":
     # directories
     refseq_dir = "../data/RefSeq/"
     out_dir = "../data/long_reads/read_" + str(readlength) + "_error_" + str(error_rate) +  '/'
+    if not os.path.exists(out_dir): # create output directory if it already doesn't exist
+        os.makedirs(out_dir)
 
     num_reads_list = []
     # run simulation
@@ -103,10 +105,8 @@ if __name__ == "__main__":
 
         nanopore_simulator(genome_file, num_reads, readlength, error_rate, sim_reads_file, circular=True)
 
-    # save simulation paramters to text file
-    if not os.path.exists(out_dir): # create output directory if it already doesn't exist
-        os.makedirs(out_dir)
-
+    # save simulation paramters to text file    if not os.path.exists(out_dir): # create output directory if it already doesn't exist
+            os.makedirs(out_dir)
     with open(out_dir + "parameters.txt", "w") as f:
         f.write("Length of reads: " + str(readlength) + "\n")
         f.write("Error rate:: " + str(error_rate) + "\n")
