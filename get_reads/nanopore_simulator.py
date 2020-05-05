@@ -75,14 +75,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Simulate long reads')
     parser.add_argument('read_length', type=int, help='Length of reads')
     parser.add_argument('error_rate', type=int, help='Percent error on reads')
-    parser.add_argument('coverage', type=int, default=10, help='Amount of coverage to simulate')
+    parser.add_argument('coverage', type=int, help='Amount of coverage to simulate')
     args = parser.parse_args()
 
     # simulation parameters
     readlength = args.read_length
     error_rate = args.error_rate
     coverage = args.coverage
-
 
     # list of species
     species_list = ['NC_010117', 'NZ_LN832404', 'NC_018621', 'NC_014494', 'NC_004113', 'NC_009515', 'NC_023013', 'NC_008698', 'NC_020246', 'NC_014374']
