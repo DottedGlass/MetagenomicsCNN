@@ -79,7 +79,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # simulation parameters
-    readlength = int(args.read_length)
+    readlength = args.read_length
     error_rate = args.error_rate
     coverage = args.coverage
 
@@ -98,7 +98,7 @@ if __name__ == "__main__":
 
         # compute number of reads based on coverage
         genome = str(list(SeqIO.parse(genome_file,"fasta"))[0].seq)
-        num_reads = len(genome)*coverage/readlength
+        num_reads = int(np.ceil(len(genome)*coverage/readlength))
         num_reads_list.append(num_reads)
 
         nanopore_simulator(genome_file, num_reads, readlength, error_rate, sim_reads_file, circular=True)
