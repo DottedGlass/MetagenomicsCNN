@@ -13,7 +13,8 @@ PATH = '../data/images/read_500_error_0.01'
 TEST_SIZE = 20
 CNN_FILE = './genomics_cnn.pth'
 transform = transforms.Compose([transforms.ToTensor()])
-image_size = 141
+image_size = 451
+output_size = 10
 
 files = os.listdir(PATH)
 classes = [f.split('.'[0]) for f in files]
@@ -41,7 +42,7 @@ class TestSet(torch.utils.data.Dataset):
 testset = TestSet(PATH, TEST_SIZE, transform=transform)
 testloader = torch.utils.data.DataLoader(testset, batch_size=4, shuffle=False, num_workers=2)
 
-net = Net()
+net = Net(image_size, output_size)
 net.load_state_dict(torch.load(CNN_FILE))
 
 # outputs = net(images)

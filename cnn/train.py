@@ -13,7 +13,8 @@ import os
 
 PATH = '../data/images/read_500_error_0.01'
 TEST_SIZE = 20
-image_size = 141
+image_size = 451
+output_size = 10
 
 transform = transforms.Compose([transforms.ToTensor()])
 
@@ -43,7 +44,7 @@ class TrainSet(torch.utils.data.Dataset):
 trainset = TrainSet(PATH, TEST_SIZE, transform=transform)
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=4, shuffle=True, num_workers=2)
 
-net = Net()
+net = Net(image_size, output_size)
 # define loss function and optimizer
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
