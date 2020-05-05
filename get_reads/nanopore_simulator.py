@@ -1,4 +1,5 @@
 import os
+import argparse
 import numpy as np
 from Bio import SeqIO
 from Bio.Seq import Seq
@@ -10,13 +11,16 @@ def nanopore_simulator(genome_file, num_reads, readlength, error_rate, sim_reads
 
     Parameters
     ----------
+    error_rate : int or float
+        Percent error.
+
     circular : boolean
         Determines whether or not to account for cicular DNA. Default is False.
     """
 
     # read in reference genome
     genome = str(list(SeqIO.parse(genome_file,"fasta"))[0].seq)
-    num_errored_bases = int(np.rint(readlength*error_rate))
+    num_errored_bases = int(np.rint(readlength*error_rate/100))
 
     # modify for circular genome
     if circular:
@@ -67,29 +71,46 @@ def nanopore_simulator(genome_file, num_reads, readlength, error_rate, sim_reads
 
 if __name__ == "__main__":
 
+    # parse arguments
+    parser = argparse.ArgumentParser(description='Simulate long reads')
+    parser.add_argument('read_length', type=int, help='Length of reads')
+    parser.add_argument('error_rate', type=int, help='Percent error on reads')
+    parser.add_argument('coverage', type=int, default=10, help='Amount of coverage to simulate')
+    args = parser.parse_args()
+
+    # simulation parameters
+    readlength = args.read_length
+    error_rate = args.error_rate
+    coverage = args.coverage
+
+
+    # list of species
     species_list = ['NC_010117', 'NZ_LN832404', 'NC_018621', 'NC_014494', 'NC_004113', 'NC_009515', 'NC_023013', 'NC_008698', 'NC_020246', 'NC_014374']
 
     # directories
     refseq_dir = "../data/RefSeq/"
-    num_reads = 1000
-    readlength = 1000
-    error_rate = 0.01
     out_dir = "../data/long_reads/read_" + str(readlength) + "_error_" + str(error_rate) +  '/'
+
+    num_reads_list = []
+    # run simulation
+    for species in species_list:
+        genome_file = refseq_dir + species + ".fasta"
+        sim_reads_file = out_dir + species +  ".reads." + str(readlength) + "bp.fa"
+
+        # compute number of reads based on coverage
+        genome = str(list(SeqIO.parse(genome_file,"fasta"))[0].seq)
+        num_reads = len(genome)*coverage/readlength
+        num_reads_list.append(num_reads)
+
+        nanopore_simulator(genome_file, num_reads, readlength, error_rate, sim_reads_file, circular=True)
 
     # save simulation paramters to text file
     if not os.path.exists(out_dir): # create output directory if it already doesn't exist
         os.makedirs(out_dir)
 
     with open(out_dir + "parameters.txt", "w") as f:
-        f.write("Number of reads: " + str(num_reads) + "\n")
         f.write("Length of reads: " + str(readlength) + "\n")
         f.write("Error rate:: " + str(error_rate) + "\n")
-
-
-    # run simulation
-    for species in species_list:
-        genome_file = refseq_dir + species + ".fasta"
-        sim_reads_file = out_dir + species +  ".reads." + str(readlength) + "bp.fa"
-        # align_file = out_dir + species + ".align." + str(readlength) + ".txt"
-        # error_file = out_dir + species + ".error." + str(readlength) + ".txt"
-        nanopore_simulator(genome_file, num_reads, readlength, error_rate, sim_reads_file, circular=True)
+        f.write("Coverage: " + str(coverage) + "\n")
+        for species, num_reads in zip(species_list, num_reads_list):
+            f.write(species + ": " + str(num_reads) + "\n")
