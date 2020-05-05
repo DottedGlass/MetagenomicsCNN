@@ -111,5 +111,7 @@ if __name__ == "__main__":
         f.write("Length of reads: " + str(readlength) + "\n")
         f.write("Error rate:: " + str(error_rate) + "\n")
         f.write("Coverage: " + str(coverage) + "\n")
+        f.write("Number of samples\n")
+        f.write("-----------------\n")
         for species, num_reads in zip(species_list, num_reads_list):
             f.write(species + ": " + str(num_reads) + "\n")
