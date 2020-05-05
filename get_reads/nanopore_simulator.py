@@ -109,7 +109,7 @@ if __name__ == "__main__":
     # save simulation paramters to text file
     with open(out_dir + "parameters.txt", "w") as f:
         f.write("Length of reads: " + str(readlength) + "\n")
-        f.write("Error rate:: " + str(error_rate) + "\n")
+        f.write("Error rate: " + str(error_rate) + "\n")
         f.write("Coverage: " + str(coverage) + "\n")
         f.write("Number of samples\n")
         f.write("-----------------\n")
