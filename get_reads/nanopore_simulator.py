@@ -79,7 +79,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # simulation parameters
-    readlength = args.read_length
+    readlength = int(args.read_length)
     error_rate = args.error_rate
     coverage = args.coverage
 
