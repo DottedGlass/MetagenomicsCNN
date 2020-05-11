@@ -64,6 +64,7 @@ for epoch in range(epoch_times):
 		if i % 2000 == 1999:
 			print('[%d, %5d] loss: %.3f' % (epoch+1, i+1, running_loss / 2000))
 			running_loss = 0.0
+	torch.save(net.state_dict(), "./genomics_cnn_{}.pth".format(epoch+1))
 print('Finished training')
 
-torch.save(net.state_dict(), "./genomics_cnn.pth")
+torch.save(net.state_dict(), "./genomics_cnn_final.pth")
