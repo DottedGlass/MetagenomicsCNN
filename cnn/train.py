@@ -10,11 +10,12 @@ import torch.optim as optim
 from cnn import Net
 import os
 
-
+# variables to change
 PATH = '../data/images/read_500_error_0.01'
 TEST_SIZE = 20
 image_size = 451
 output_size = 10
+epoch_times = 4
 
 transform = transforms.Compose([transforms.ToTensor()])
 
@@ -49,7 +50,7 @@ net = Net(image_size, output_size)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
 
-for epoch in range(2):
+for epoch in range(epoch_times):
 	running_loss = 0.0
 	for i, data in enumerate(trainloader, 0):
 		inputs, labels = data
