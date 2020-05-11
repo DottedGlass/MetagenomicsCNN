@@ -11,7 +11,7 @@ import os
 
 PATH = '../data/images/read_500_error_0.01'
 TEST_SIZE = 20
-CNN_FILE = './genomics_cnn.pth'
+CNN_FILE = './genomics_cnn_final.pth'
 transform = transforms.Compose([transforms.ToTensor()])
 image_size = 451
 output_size = 10
