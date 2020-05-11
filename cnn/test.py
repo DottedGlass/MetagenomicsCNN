@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import torch.optim as optim
 from cnn import Net
 import os
+from sklearn.metrics import confusion_matrix
 
 PATH = '../data/images/read_500_error_0.01'
 TEST_SIZE = 20
@@ -53,6 +54,7 @@ correct = 0
 total = 0
 label_list = []
 label_correct = []
+predicted_list = []
 with torch.no_grad():
 	for data in testloader:
 		inputs, labels = data
@@ -62,6 +64,7 @@ with torch.no_grad():
 		correct += (predicted == labels).sum().item()
 
 		label_list.append(labels)
+		predicted_list.append(predicted)
 		label_correct.append((predicted == labels).sum().item())
 
 print('Accuracy of the network on the test images: %d %%' % (100 * correct / total))
@@ -69,3 +72,7 @@ print('Accuracy of the network on the test images: %d %%' % (100 * correct / tot
 print('Accuracy by label')
 for l,c in zip(label_list,label_correct):
 	print(l,":",str(c/TEST_SIZE))
+
+print('Confusion Matrix')
+cf_m = confusion_matrix(label_list, predicted_list)
+print(cf_m)
