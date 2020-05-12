@@ -26,9 +26,8 @@ def save_image(read_file,reads_dir,images_dir,kmer_length):
     reads = np.array([str(bioseq_list[i].seq) for i in range(len(bioseq_list))])
 
     # loop over all reads
-    kmer_cache = dict()
     for i in range(len(reads)):
-        ts, kmer_cache = read2num(reads[i], kmer_length=kmer_length, kmer_cache=kmer_cache)
+        ts = read2num(reads[i], kmer_length=kmer_length)
 
         # GAF conversion
         gasf = GramianAngularField(method='summation')

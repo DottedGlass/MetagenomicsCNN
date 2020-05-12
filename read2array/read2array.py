@@ -39,7 +39,7 @@ def read2array(read, kmer_length=1, array_type='GAF'):
 
     return array
 
-def read2num(read,kmer_length,kmer_cache=dict()):
+def read2num(read,kmer_length):
     """Converts the read into a 1D array of numbers
     Parameters
     ----------
@@ -47,19 +47,16 @@ def read2num(read,kmer_length,kmer_cache=dict()):
         A read from shotgun sequencing. Bases must be A, C, G, or T.
     kmer_length: int
         Length of kmers used for encoding read into numbers
-    kmer_cache : dict
-        cache of kmers
 
     Returns
     -------
     numpy.array
-
-    kmer_cache : dict
     """
 
     num_kmers = len(read) - kmer_length + 1
     nt2int = {'A':'0', 'C':'1', 'G':'2', 'T':'3'}
     time_series = []
+    kmer_cache = dict()
     for i in range(num_kmers):
 
         # split into kmers
@@ -84,7 +81,7 @@ def read2num(read,kmer_length,kmer_cache=dict()):
             time_series.append(kmer_num)
             kmer_cache[kmer] = kmer_num
 
-    return np.array(time_series), kmer_cache
+    return np.array(time_series)
 
 def onehot_encode(read):
     """Converts the read into 1 hot encoding. Returns a (len(read),4) array.
