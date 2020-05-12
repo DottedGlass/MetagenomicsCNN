@@ -36,7 +36,7 @@ def save_image(read_file,reads_dir,images_dir,kmer_length):
         gaf = np.squeeze(gaf)
 
         # save file
-        species = f.split('.')[0]
+        species = read_file.split('.')[0]
         gaf_path = os.path.join(images_dir, species + '_read-' + str(i) + '.npy')
         np.save(gaf_path, gaf)
 
@@ -70,7 +70,7 @@ if __name__ == "__main__":
     print(reads_files)
     print("----------------")
 
-    Parallel(n_jobs=num_cores)(delayed(save_image)(f,reads_dir,images_dir,kmer_length)for f in reads_files)
+    Parallel(n_jobs=num_cores)(delayed(save_image)(f,reads_dir,images_dir,kmer_length) for f in reads_files)
 
     print('Images saved in')
     print(os.path.abspath(images_dir))
