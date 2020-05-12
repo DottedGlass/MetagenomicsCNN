@@ -53,22 +53,22 @@ def read2num(read,kmer_length):
     numpy.array
     """
 
-    # remove unknown bases with A
-    read = read.replace('N','A')
-    read = read.replace('K','A')
-    read = read.replace('R','A')
-    read = read.replace('Y','A') ## TODO: need to generalize to all unknown bases
-
     num_kmers = len(read) - kmer_length + 1
     nt2int = {'A':'0', 'C':'1', 'G':'2', 'T':'3'}
-    time_series = []
+    time_series = np.zeros(len(num_kmers),dtype=int)
     for i in range(num_kmers):
 
         # split into kmers
         kmer = read[i:i+kmer_length]
 
         # convert to base 4 num
-        kmer_base4 = "".join([nt2int[b] for b in kmer])
+        int_mer  = []
+        for b in kmer:
+            if b not in nt2int:
+                b = 'A'         # replace unknown bases with A
+            int_mer.append(nt2int[b])
+
+        kmer_base4 = "".join(int_mer)
 
         # convert to base 10 number
         kmer_num = int(kmer_base4,base=4)
