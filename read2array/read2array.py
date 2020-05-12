@@ -59,7 +59,7 @@ def read2num(read,kmer_length,kmer_cache=dict()):
 
     num_kmers = len(read) - kmer_length + 1
     nt2int = {'A':'0', 'C':'1', 'G':'2', 'T':'3'}
-    time_series = np.zeros(len(num_kmers),dtype=int)
+    time_series = []
     for i in range(num_kmers):
 
         # split into kmers
