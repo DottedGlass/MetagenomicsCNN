@@ -38,6 +38,8 @@ from read2array import read2num
 kmer_length = 50
 reads_dir = '../data/long_reads/read_1000_error_1'
 images_dir = '../data/images' + '/' + os.path.basename(reads_dir) + '/'
+if not os.path.exists(images_dir):
+    os.makedirs(images_dir)
 
 # get list of fasta files that contain the reads
 reads_files = [f for f in os.listdir(reads_dir) if f.endswith('.fa')]
@@ -61,7 +63,8 @@ for f in reads_files:
 
         # GAF conversion
         gasf = GramianAngularField(method='summation')
-        gaf = gasf.fit_transform(ts)
+        gaf = gasf.fit_transform(ts.reshape(1,-1))
+        gaf = np.squeeze(gaf)
 
         # save file
         species = f.split('.')[0]
