@@ -19,51 +19,57 @@ from pyts.image import GramianAngularField
 from read2array import read2num
 
 
-if __name__ == "__main__":
-    # parse arguments
-    parser = argparse.ArgumentParser(description='Convert reads into images')
-    parser.add_argument('indir', type=str, help='Input dir for reads')
-    parser.add_argument('outdir', type=str, help='Output dir for reads encoded as images')
-    parser.add_argument('--kmer_length', default=100, help='Length of kmers used for encoding read into numbers')
-    parser.add_argument('--array_type', default='GAF', help="Specifies type of array the read will be encoded in. 'GAF' denotes Gramian Angular Field 'MTF' denotes Markov Transition Fields")
-    args = parser.parse_args()
+# if __name__ == "__main__":
+#     # parse arguments
+#     parser = argparse.ArgumentParser(description='Convert reads into images')
+#     parser.add_argument('indir', type=str, help='Input dir for reads')
+#     parser.add_argument('outdir', type=str, help='Output dir for reads encoded as images')
+#     parser.add_argument('--kmer_length', default=50, help='Length of kmers used for encoding read into numbers')
+#     parser.add_argument('--array_type', default='GAF', help="Specifies type of array the read will be encoded in. 'GAF' denotes Gramian Angular Field 'MTF' denotes Markov Transition Fields")
+#     args = parser.parse_args()
+#
+#     kmer_length = int(args.kmer_length)
+#     reads_dir = args.indir
+#     images_dir = args.outdir + '/' + os.path.basename(reads_dir) + '/'
+#     if not os.path.exists(images_dir):
+#         os.makedirs(images_dir)
 
-    kmer_length = int(args.kmer_length)
-    reads_dir = args.indir
-    images_dir = args.outdir + '/' + os.path.basename(reads_dir) + '/'
-    if not os.path.exists(images_dir):
-        os.makedirs(images_dir)
+#test parameters
+kmer_length = 50
+reads_dir = '../data/long_reads/read_1000_error_1'
+images_dir = '../data/images' + '/' + os.path.basename(reads_dir) + '/'
 
-    # get list of fasta files that contain the reads
-    reads_files = [f for f in os.listdir(reads_dir) if f.endswith('.fa')]
+# get list of fasta files that contain the reads
+reads_files = [f for f in os.listdir(reads_dir) if f.endswith('.fa')]
 
-    # TODO: Parallelize this for loop
-    print("processing files")
-    print("----------------")
-    print(reads_files)
-    print("----------------")
-    for f in reads_files:
-        print(f)
+# TODO: Parallelize this for loop
+print("processing files")
+print("----------------")
+print(reads_files)
+print("----------------")
+for f in reads_files:
+    print(f)
 
-        # read in reads as list
-        reads = list(SeqIO.parse(os.path.join(reads_dir,f),"fasta"))
+    # read in reads as list
+    bioseq_list = list(SeqIO.parse(os.path.join(reads_dir,f),"fasta"))
+    reads = np.array([str(bioseq_list[i].seq) for i in range(len(bioseq_list))])
 
-        # convert reads into numeric encoding
-        print("Encoding reads as time series")
-        numeric_reads = []
-        for i in range(len(reads)):
-            numeric_reads.append(read2num(str(reads[i].seq), kmer_length=kmer_length))
-
-        numeric_reads = np.array(numeric_reads)
+    # loop over all reads
+    kmer_cache = dict()
+    for i in range(len(reads)):
+        ts, kmer_cache = read2num(reads[i], kmer_length=kmer_length, kmer_cache=kmer_cache)
 
         # GAF conversion
-        print("Converting time series into image")
         gasf = GramianAngularField(method='summation')
-        gaf = gasf.fit_transform(numeric_reads)
+        gaf = gasf.fit_transform(ts)
 
-        array_file_name = os.path.splitext(f)[0]
-        array_path = os.path.join(images_dir, array_file_name + ".npy")
-        np.save(array_path, gaf)
+        # save file
+        species = f.split('.')[0]
+        gaf_path = os.path.join(images_dir, species + '_read-' + str(i) + '.npy')
+        np.save(gaf_path, gaf)
 
-    print('Images saved in')
-    print(os.path.abspath(images_dir))
+        if i % 5000 == 4999:
+            print("processed read", str(i+1), "in", species)
+
+print('Images saved in')
+print(os.path.abspath(images_dir))
