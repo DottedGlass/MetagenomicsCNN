@@ -23,6 +23,7 @@ from read2array import read2num
 def save_ts(read_file,reads_dir,ts_dir,kmer_length):
     """ Converts reads in read_file to time series
     """
+    species = read_file.split('.')[0]
     # read in reads as list
     bioseq_list = list(SeqIO.parse(os.path.join(reads_dir,read_file),"fasta"))
     reads = np.array([str(bioseq_list[i].seq) for i in range(len(bioseq_list))])
@@ -39,7 +40,6 @@ def save_ts(read_file,reads_dir,ts_dir,kmer_length):
     time_series = np.array(time_series_list)
 
     # save file
-    species = read_file.split('.')[0]
     ts_path = os.path.join(ts_dir, species + '.npy')
     np.save(ts_path, time_series)
 
