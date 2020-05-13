@@ -51,7 +51,7 @@ device = torch.device("cuda:0" if use_cuda else "cpu")
 torch.backends.cudnn.benchmark = True
 
 # initialize CNN
-net = Net(image_size, num_classes, device)
+net = Net(image_size, num_classes)
 net.load_state_dict(torch.load(cnn_model_file))
 net.to(device)
 

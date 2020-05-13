@@ -94,7 +94,7 @@ def main():
 	torch.backends.cudnn.benchmark = True
 
 	# initialize CNN
-	net = Net(image_size, num_classes, device)
+	net = Net(image_size, num_classes)
 	net.to(device)
 
 	# define loss function and optimizer

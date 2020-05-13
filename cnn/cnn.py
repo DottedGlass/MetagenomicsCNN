@@ -6,11 +6,10 @@ import torchvision
 import math
 
 class Net(nn.Module):
-	def __init__(self, img_size, output_size, device):
+	def __init__(self, img_size, output_size):
 		super(Net, self).__init__()
 		# initialize params
 		self.img_size = img_size
-		self.device = device
 		conv1_out, conv1_ksize = (6, 5)
 		pool_size, pool_stride = (2, 2)
 		conv2_out, conv2_ksize = (16, 5)
@@ -18,9 +17,9 @@ class Net(nn.Module):
 		fc2_out = 84
 
 		# double conv2d + maxpool
-		self.conv1 = nn.Conv2d(1, conv1_out, conv1_ksize).cuda() # 1 in, 6 out, 5 kernel size
-		self.pool = nn.MaxPool2d(pool_size, pool_stride).cuda()
-		self.conv2 = nn.Conv2d(conv1_out, conv2_out, conv2_ksize).cuda()
+		self.conv1 = nn.Conv2d(1, conv1_out, conv1_ksize) # 1 in, 6 out, 5 kernel size
+		self.pool = nn.MaxPool2d(pool_size, pool_stride)
+		self.conv2 = nn.Conv2d(conv1_out, conv2_out, conv2_ksize)
 
 		# calculate input size for fc1
 		self.fc1_in = conv2d_pool_size(self.img_size, conv1_ksize, pool_size, pool_stride)
@@ -28,12 +27,11 @@ class Net(nn.Module):
 		self.fc1_in = self.fc1_in * self.fc1_in * conv2_out
 
 		# 3 fully connected layers
-		self.fc1 = nn.Linear(self.fc1_in, fc1_out).cuda()
-		self.fc2 = nn.Linear(fc1_out, fc2_out).cuda()
-		self.fc3 = nn.Linear(fc2_out, output_size).cuda()
+		self.fc1 = nn.Linear(self.fc1_in, fc1_out)
+		self.fc2 = nn.Linear(fc1_out, fc2_out)
+		self.fc3 = nn.Linear(fc2_out, output_size)
 
 	def forward(self, x):
-		x = x.to(self.device)
 		x = self.pool(F.relu(self.conv1(x)))
 		# print(x.shape)
 		x = self.pool(F.relu(self.conv2(x)))
