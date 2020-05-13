@@ -94,9 +94,9 @@ class Dataset(data.Dataset):
 			for b in kmer:
 				if b not in nt2int:
 					b = 'A'         # replace unknown bases with A
-					int_mer.append(nt2int[b])
+				int_mer.append(nt2int[b])
 
-					kmer_base4 = "".join(int_mer)
+			kmer_base4 = "".join(int_mer)
 
 			# convert to base 10 number
 			kmer_num = int(kmer_base4,base=4)
