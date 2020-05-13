@@ -12,10 +12,16 @@ from pyts.image import GramianAngularField
 from cnn import Net
 from dataset import Dataset
 
+# parse arguments
+parser = argparse.ArgumentParser(description='Trains CNN')
+parser.add_argument('reads_dir', type=str, help='Input dir for long reads')
+
 def main():
 	# variables to change
-	reads_dir = '/home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/long_reads/read_1000_error_1'
-	cnn_dir = '/home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn'
+	args = parser.parse_args()
+	reads_dir = args.reads_dir
+	# reads_dir = '/home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/long_reads/read_1000_error_1'
+	cnn_dir = '/work-zfs/mschatz1/xwang145/data/cnn'
 	kmer_length = 50
 	test_percent = 0.2
 	max_epochs = 100
@@ -25,6 +31,9 @@ def main():
 	cnn_dir = os.path.join(cnn_dir,cnn_name)
 	if not os.path.exists(cnn_dir):
 		os.makedirs(cnn_dir)
+
+	print("--Model output will be saved in--")
+	print(os.path.abspath(cnn_dir))
 
 	# read parameters file to get information of dataset
 	param_file = os.path.join(reads_dir,'parameters.txt')
