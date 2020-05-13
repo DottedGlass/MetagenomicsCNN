@@ -43,7 +43,7 @@ with open(os.path.join(cnn_dir,'labels.pickle'), 'rb') as f:
 # generators
 transform = transforms.Compose([transforms.ToTensor()])
 testset = Dataset(reads_dir, reads_files, test_list, labels_dict, kmer_length, transform=transform)
-testloader = data.DataLoader(trainset, batch_size=4, shuffle=True, num_workers=2)
+testloader = data.DataLoader(testset, batch_size=4, shuffle=False, num_workers=2)
 
 # CUDA for PyTorch
 use_cuda = torch.cuda.is_available()
