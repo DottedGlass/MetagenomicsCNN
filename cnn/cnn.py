@@ -35,18 +35,18 @@ class Net(nn.Module):
 	def forward(self, x):
 		x = x.to(self.device)
 		x = self.pool(F.relu(self.conv1(x)))
-		print(x.shape)
+		# print(x.shape)
 		x = self.pool(F.relu(self.conv2(x)))
-		print(x.shape)
+		# print(x.shape)
 		x = x.view(-1, self.fc1_in)
-		print(x.shape)
+		# print(x.shape)
 		x = F.relu(self.fc1(x))
-		print(x.shape)
+		# print(x.shape)
 		x = F.relu(self.fc2(x))
-		print(x.shape)
+		# print(x.shape)
 		x = self.fc3(x)
-		print(x.shape)
-		print("Done")
+		# print(x.shape)
+		# print("Done")
 		return x
 
 def conv2d_pool_size(img_size, conv_ksize, pool_size, pool_stride):
