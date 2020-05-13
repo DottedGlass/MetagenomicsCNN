@@ -97,7 +97,7 @@ def main():
 			# get samples and labels
 			local_batch, local_labels = local_data
 			# Transfer to GPU
-	        local_batch, local_labels = local_batch.to(device), local_labels.to(device)
+			local_batch, local_labels = local_batch.to(device), local_labels.to(device)
 
 			optimizer.zero_grad()
 			outputs = net(local_batch.float())
