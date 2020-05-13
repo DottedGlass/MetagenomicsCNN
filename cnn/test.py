@@ -35,9 +35,9 @@ num_classes = len(reads_files)
 image_size = read_length - kmer_length + 1
 
 # retrieve testing parition and labels
-with open(os.path.join(cnn_dir,'test_list.pickle'), 'wb') as f:
+with open(os.path.join(cnn_dir,'test_list.pickle'), 'rb') as f:
 	test_list = pickle.load(f)
-with open(os.path.join(cnn_dir,'labels.pickle'), 'wb') as f:
+with open(os.path.join(cnn_dir,'labels.pickle'), 'rb') as f:
 	labels_dict = pickle.load(f)
 
 # generators
