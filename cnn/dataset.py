@@ -59,7 +59,7 @@ class Dataset(data.Dataset):
 
 		# convert time series to GAF
 		gasf = GramianAngularField(method='summation')
-    	X = gasf.fit_transform(ts.reshape(1,-1)).squeeze()
+		X = gasf.fit_transform(ts.reshape(1,-1)).squeeze()
 
 		# apply transform
 		if self.transform:
@@ -68,39 +68,39 @@ class Dataset(data.Dataset):
 		return X, y
 
 	def read2ts(self, read, kmer_length):
-	    """Converts the read into a 1D array of numbers by encoding kmer as numbers
-	    Parameters
-	    ----------
-	    read : str
-	        A read from shotgun sequencing. Bases must be A, C, G, or T.
-	    kmer_length: int
-	        Length of kmers used for encoding read into numbers
+		"""Converts the read into a 1D array of numbers by encoding kmer as numbers
+		Parameters
+		----------
+		read : str
+			A read from shotgun sequencing. Bases must be A, C, G, or T.
+		kmer_length: int
+			Length of kmers used for encoding read into numbers
 
-	    Returns
-	    -------
-	    numpy.array
-	    """
+		Returns
+		-------
+		numpy.array
+		"""
 
-	    num_kmers = len(read) - kmer_length + 1
-	    nt2int = {'A':'0', 'C':'1', 'G':'2', 'T':'3'}
-	    time_series = []
-	    for i in range(num_kmers):
+		num_kmers = len(read) - kmer_length + 1
+		nt2int = {'A':'0', 'C':'1', 'G':'2', 'T':'3'}
+		time_series = []
+		for i in range(num_kmers):
 
-	        # split into kmers
-	        kmer = read[i:i+kmer_length]
+			# split into kmers
+			kmer = read[i:i+kmer_length]
 
-	        # convert to base 4 num
-	        int_mer  = []
-	        for b in kmer:
-	            if b not in nt2int:
-	                b = 'A'         # replace unknown bases with A
-	            int_mer.append(nt2int[b])
+			# convert to base 4 num
+			int_mer  = []
+			for b in kmer:
+				if b not in nt2int:
+					b = 'A'         # replace unknown bases with A
+					int_mer.append(nt2int[b])
 
-	        kmer_base4 = "".join(int_mer)
+					kmer_base4 = "".join(int_mer)
 
-	        # convert to base 10 number
-	        kmer_num = int(kmer_base4,base=4)
+			# convert to base 10 number
+			kmer_num = int(kmer_base4,base=4)
 
-	        time_series.append(kmer_num)
+			time_series.append(kmer_num)
 
-	    return np.array(time_series)
+		return np.array(time_series)
