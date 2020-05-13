@@ -6,10 +6,11 @@ import torchvision
 import math
 
 class Net(nn.Module):
-	def __init__(self, img_size, output_size):
+	def __init__(self, img_size, output_size, device):
 		super(Net, self).__init__()
 		# initialize params
 		self.img_size = img_size
+		self.device = device
 		conv1_out, conv1_ksize = (6, 5)
 		pool_size, pool_stride = (2, 2)
 		conv2_out, conv2_ksize = (16, 5)
@@ -32,7 +33,7 @@ class Net(nn.Module):
 		self.fc3 = nn.Linear(fc2_out, output_size).cuda()
 
 	def forward(self, x):
-		x = x.to(device)
+		x = x.to(self.device)
 		x = self.pool(F.relu(self.conv1(x)))
 		print(x.shape)
 		x = self.pool(F.relu(self.conv2(x)))

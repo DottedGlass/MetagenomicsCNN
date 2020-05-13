@@ -81,7 +81,7 @@ def main():
 	device = torch.device("cuda:0" if use_cuda else "cpu")
 
 	# initialize CNN
-	net = Net(image_size, num_classes)
+	net = Net(image_size, num_classes, device)
 	net.to(device)
 
 	# define loss function and optimizer
