@@ -13,8 +13,8 @@ from dataset import Dataset
 
 def main():
 	# variables to change
-	reads_dir = '/home-4/xwang145@jhu.edu/work-mschatz1/xwang145/data/long_reads/read_1000_error_1'
-	cnn_dir = '/home-4/xwang145@jhu.edu/work-mschatz1/xwang145/data/cnn'
+	reads_dir = '/home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/long_reads/read_1000_error_1'
+	cnn_dir = '/home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn'
 	kmer_length = 50
 	test_percent = 0.2
 	max_epochs = 100
