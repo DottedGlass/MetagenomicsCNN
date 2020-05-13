@@ -1,6 +1,7 @@
 import os
 import pickle
 import argparse
+from datetime import datetime
 import numpy as np
 import torch
 from torch.utils import data
@@ -107,12 +108,16 @@ def main():
 
 			running_loss += loss.item()
 			if i % 2000 == 1999:
-				print('[%d, %5d] loss: %.3f' % (epoch+1, i+1, running_loss / 2000))
+				now = datetime.now()
+				dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+				print('%s [%d, %5d] loss: %.3f' % (dt_string, epoch+1, i+1, running_loss / 2000))
 				running_loss = 0.0
 
-		# save progress after each epoch
-		cnn_save_name = os.path.join(cnn_dir, "cnn_epoch_" + str(epoch) + ".pth")
-		torch.save(net.state_dict(), cnn_save_name)
+			# save progress after every 10000 samples
+			if i % 10000 == 9999:
+				cnn_save_name = os.path.join(cnn_dir, "cnn_epoch_" + str(epoch) + ".i_" + str(i) + ".pth")
+				torch.save(net.state_dict(), cnn_save_name)
+				print('Saved:',cnn_save_name)
 
 
 	cnn_save_name_final = os.path.join(cnn_dir, "cnn_final.pth")
