@@ -32,7 +32,7 @@ class Net(nn.Module):
 		self.fc3 = nn.Linear(fc2_out, output_size).cuda()
 
 	def forward(self, x):
-		x.x.to(device)
+		x = x.to(device)
 		x = self.pool(F.relu(self.conv1(x)))
 		print(x.shape)
 		x = self.pool(F.relu(self.conv2(x)))
