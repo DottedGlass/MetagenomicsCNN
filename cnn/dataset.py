@@ -7,7 +7,7 @@ from Bio import SeqIO
 from pyts.image import GramianAngularField
 
 class Dataset(data.Dataset):
-	def __init__(self, reads_dir, reads_files, list_IDs, labels, kmer_length, transform=None):
+	def __init__(self, reads_dir, reads_files, list_IDs, labels_dict, kmer_length, transform=None):
 		"""Initialization
 		Parameters
 	    ----------
@@ -22,7 +22,7 @@ class Dataset(data.Dataset):
 		"""
 
 		self.list_IDs = list_IDs
-		self.labels = labels
+		self.labels_dict = labels_dict
 		self.kmer_length = kmer_length
 		self.transform = transform
 
@@ -49,7 +49,7 @@ class Dataset(data.Dataset):
 
 		file, sample_num = ID.split(':')
 		sample_num = int(sample_num)
-		y = self.labels[ID]
+		y = self.labels_dict[ID]
 
 		# load read
 		read = self.long_reads[file][sample_num]

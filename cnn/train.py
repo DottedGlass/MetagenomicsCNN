@@ -55,7 +55,7 @@ def main():
 	# make training and testing partition
 	test_list = []
 	train_list = []
-	labels = dict()
+	labels_dict = dict()
 	for i,file in enumerate(reads_files):
 		species = file.split('.')[0]
 		num = num_samples[species]
@@ -65,13 +65,13 @@ def main():
 		for k in range(0,test_thres):
 			ID = file + ':' + str(k)
 			test_list.append(ID)
-			labels[ID] = i
+			labels_dict[ID] = i
 
 		# add to train_list
 		for k in range(test_thres,num):
 			ID = file + ':' + str(k)
 			train_list.append(ID)
-			labels[ID] = i
+			labels_dict[ID] = i
 
 	# save training and testing partition, along with labels
 	with open(os.path.join(cnn_dir,'train_list.pickle'), 'wb') as f:
@@ -79,11 +79,11 @@ def main():
 	with open(os.path.join(cnn_dir,'test_list.pickle'), 'wb') as f:
 		pickle.dump(test_list, f)
 	with open(os.path.join(cnn_dir,'labels.pickle'), 'wb') as f:
-		pickle.dump(labels, f)
+		pickle.dump(labels_dict, f)
 
 	# generators
 	transform = transforms.Compose([transforms.ToTensor()])
-	trainset = Dataset(reads_dir, reads_files, train_list, labels, kmer_length, transform=transform)
+	trainset = Dataset(reads_dir, reads_files, train_list, labels_dict, kmer_length, transform=transform)
 	trainloader = data.DataLoader(trainset, batch_size=4, shuffle=True, num_workers=2)
 
 	# CUDA for PyTorch
