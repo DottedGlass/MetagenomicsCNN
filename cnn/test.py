@@ -52,7 +52,7 @@ torch.backends.cudnn.benchmark = True
 
 # initialize CNN
 net = Net(image_size, num_classes)
-net.load_state_dict(torch.load(cnn_model_file))
+net.load_state_dict(torch.load(cnn_model_file, map_location=device))
 net.to(device)
 
 correct = 0
