@@ -79,6 +79,7 @@ def main():
 	# CUDA for PyTorch
 	use_cuda = torch.cuda.is_available()
 	device = torch.device("cuda:0" if use_cuda else "cpu")
+	torch.backends.cudnn.benchmark = True
 
 	# initialize CNN
 	net = Net(image_size, num_classes, device)
