@@ -76,8 +76,10 @@ def main():
 	# save training and testing partition, along with labels
 	with open(os.path.join(cnn_dir,'train_list.pickle'), 'wb') as f:
 		pickle.dump(train_list, f)
+
 	with open(os.path.join(cnn_dir,'test_list.pickle'), 'wb') as f:
 		pickle.dump(test_list, f)
+
 	with open(os.path.join(cnn_dir,'labels.pickle'), 'wb') as f:
 		pickle.dump(labels_dict, f)
 
@@ -92,7 +94,7 @@ def main():
 	torch.backends.cudnn.benchmark = True
 
 	# initialize CNN
-	net = Net(image_size, num_classes, device)
+	net = Net(image_size, num_classes)
 	net.to(device)
 
 	# define loss function and optimizer

@@ -35,15 +35,15 @@ num_classes = len(reads_files)
 image_size = read_length - kmer_length + 1
 
 # retrieve testing parition and labels
-with open(os.path.join(cnn_dir,'test_list.pickle'), 'wb') as f:
+with open(os.path.join(cnn_dir,'test_list.pickle'), 'rb') as f:
 	test_list = pickle.load(f)
-with open(os.path.join(cnn_dir,'labels.pickle'), 'wb') as f:
+with open(os.path.join(cnn_dir,'labels.pickle'), 'rb') as f:
 	labels_dict = pickle.load(f)
 
 # generators
 transform = transforms.Compose([transforms.ToTensor()])
 testset = Dataset(reads_dir, reads_files, test_list, labels_dict, kmer_length, transform=transform)
-testloader = data.DataLoader(trainset, batch_size=4, shuffle=True, num_workers=2)
+testloader = data.DataLoader(testset, batch_size=4, shuffle=False, num_workers=2)
 
 # CUDA for PyTorch
 use_cuda = torch.cuda.is_available()
@@ -51,8 +51,8 @@ device = torch.device("cuda:0" if use_cuda else "cpu")
 torch.backends.cudnn.benchmark = True
 
 # initialize CNN
-net = Net(image_size, num_classes, device)
-net.load_state_dict(torch.load(cnn_model_file))
+net = Net(image_size, num_classes)
+net.load_state_dict(torch.load(cnn_model_file, map_location=device))
 net.to(device)
 
 correct = 0
