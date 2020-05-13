@@ -19,13 +19,16 @@ reads_dir = '/home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/long_reads/
 cnn_dir = '/work-zfs/mschatz1/xwang145/data/cnn'
 cnn_model_file = 'cnn_epoch_0.i_109999.pth'
 kmer_length = 50
-test_percent = 0.2
-max_epochs = 100
 
 # file locations
 cnn_name = os.path.basename(reads_dir)
 cnn_dir = os.path.join(cnn_dir,cnn_name)
 cnn_model_file = os.path.join(cnn_dir,cnn_model_file)
+
+# read parameters file to get information of dataset
+param_file = os.path.join(reads_dir,'parameters.txt')
+with open(param_file, 'r') as f:
+	read_length = int(f.readline().rstrip().split(': ')[1])
 
 reads_files = [f for f in os.listdir(reads_dir) if f.endswith('.fa')]
 num_classes = len(reads_files)
