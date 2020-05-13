@@ -125,7 +125,7 @@ def main():
 
 			# save progress after every 10000 samples
 			if i % 10000 == 9999:
-				cnn_save_name = os.path.join(cnn_dir, "cnn_epoch_" + str(epoch) + ".i_" + str(i) + ".pth")
+				cnn_save_name = os.path.join(cnn_dir, "cnn_epoch_" + str(epoch) + ".i_" + str(i+1) + ".pth")
 				torch.save(net.state_dict(), cnn_save_name)
 				print('Saved:',cnn_save_name)
 
