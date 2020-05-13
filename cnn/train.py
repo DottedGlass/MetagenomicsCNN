@@ -47,8 +47,8 @@ def main():
 	train_list = []
 	labels = dict()
 	for i,file in enumerate(reads_files):
-	    species = file.split('.')[0]
-		num  = num_samples[species]
+		species = file.split('.')[0]
+		num = num_samples[species]
 		test_thres = round(num*test_percent)
 
 		# add to test_list
