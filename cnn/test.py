@@ -45,15 +45,16 @@ transform = transforms.Compose([transforms.ToTensor()])
 testset = Dataset(reads_dir, reads_files, test_list, labels_dict, kmer_length, transform=transform)
 testloader = data.DataLoader(testset, batch_size=4, shuffle=False, num_workers=2)
 
-# CUDA for PyTorch
-use_cuda = torch.cuda.is_available()
-device = torch.device("cuda:0" if use_cuda else "cpu")
-torch.backends.cudnn.benchmark = True
+# # CUDA for PyTorch
+# use_cuda = torch.cuda.is_available()
+# device = torch.device("cuda:0" if use_cuda else "cpu")
+# if use_cuda: torch.backends.cudnn.benchmark = True
 
 # initialize CNN
 net = Net(image_size, num_classes)
-net.load_state_dict(torch.load(cnn_model_file, map_location=device))
-net.to(device)
+# net.load_state_dict(torch.load(cnn_model_file, map_location=device))
+# net.to(device)
+net.load_state_dict(torch.load(cnn_model_file))
 
 correct = 0
 total = 0
@@ -65,7 +66,7 @@ with torch.no_grad():
 		# get samples and labels
 		local_batch, local_labels = local_data
 		# Transfer to GPU
-		local_batch, local_labels = local_batch.to(device), local_labels.to(device)
+		# local_batch, local_labels = local_batch.to(device), local_labels.to(device)
 
 		outputs = net(local_batch.float())
 		_, predicted = torch.max(outputs.data, 1)
