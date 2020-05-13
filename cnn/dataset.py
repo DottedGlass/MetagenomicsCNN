@@ -49,7 +49,7 @@ class Dataset(data.Dataset):
 
 		file, sample_num = ID.split(':')
 		sample_num = int(sample_num)
-		y = self.labels[file]
+		y = self.labels[ID]
 
 		# load read
 		read = self.long_reads[file][sample_num]
