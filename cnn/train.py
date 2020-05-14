@@ -20,7 +20,8 @@ def main():
 	# variables to change
 	args = parser.parse_args()
 	reads_dir = args.reads_dir
-	# reads_dir = '/home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/long_reads/read_1000_error_1'
+
+	# reads_dir = '/work-zfs/mschatz1/xwang145/data/long_reads/read_1000_error_1'
 	cnn_dir = '/work-zfs/mschatz1/xwang145/data/cnn'
 	kmer_length = 50
 	test_percent = 0.2
@@ -49,7 +50,7 @@ def main():
 			num_samples[species] = int(count)
 
 	reads_files = [f for f in os.listdir(reads_dir) if f.endswith('.fa')]
-	num_classes = len(reads_files)
+	num_species = len(reads_files)
 	image_size = read_length - kmer_length + 1
 
 	# make training and testing partition
@@ -91,10 +92,10 @@ def main():
 	# CUDA for PyTorch
 	use_cuda = torch.cuda.is_available()
 	device = torch.device("cuda:0" if use_cuda else "cpu")
-	torch.backends.cudnn.benchmark = True
+	if use_cuda: torch.backends.cudnn.benchmark = True
 
 	# initialize CNN
-	net = Net(image_size, num_classes)
+	net = Net(image_size, num_species)
 	net.to(device)
 
 	# define loss function and optimizer
@@ -124,7 +125,7 @@ def main():
 				print('%s [%d, %5d] loss: %.3f' % (dt_string, epoch+1, i+1, running_loss / 2000))
 				running_loss = 0.0
 
-			# save progress after every 10000 samples
+			# save progress after every 10000 batches
 			if i % 10000 == 9999:
 				cnn_save_name = os.path.join(cnn_dir, "cnn_epoch_" + str(epoch) + ".i_" + str(i) + ".pth")
 				torch.save(net.state_dict(), cnn_save_name)

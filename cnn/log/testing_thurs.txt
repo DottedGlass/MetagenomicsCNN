@@ -1,0 +1,174 @@
+(3.7.4)[xwang145@jhu.edu@compute0753 cnn]$ clear
+(3.7.4)[xwang145@jhu.edu@compute0753 cnn]$ python test.py /work-zfs/mschatz1/xwang145/data/long_reads/read_500_error_1 cnn_epoch_3.i_289999.pth
+Testing on 1000 reads per species
+Testing on 10000 reads total
+Opening long reads file: NC_004113.reads.500bp.fa
+Opening long reads file: NC_020246.reads.500bp.fa
+Opening long reads file: NC_023013.reads.500bp.fa
+Opening long reads file: NC_014374.reads.500bp.fa
+Opening long reads file: NC_014494.reads.500bp.fa
+Opening long reads file: NC_008698.reads.500bp.fa
+Opening long reads file: NC_009515.reads.500bp.fa
+Opening long reads file: NC_018621.reads.500bp.fa
+Opening long reads file: NZ_LN832404.reads.500bp.fa
+Opening long reads file: NC_010117.reads.500bp.fa
+Compute outputs
+---------------
+Accuracy by class
+NC_004113 : 82 %
+NC_020246 : 70 %
+NC_023013 : 91 %
+NC_014374 : 66 %
+NC_014494 : 55 %
+NC_008698 : 52 %
+NC_009515 : 84 %
+NC_018621 : 29 %
+NZ_LN832404 : 80 %
+NC_010117 : 50 %
+Overall accuracy on test set
+66 %
+Confusion Matrix
+saved to /work-zfs/mschatz1/xwang145/data/cnn/read_500_error_1/confusion_matrix.cnn_epoch_3.i_289999.pth.npy
+[[822   4  19  34  41 105   0  13 110  49]
+ [  1 704   1   8  84   1  60 153   8   3]
+ [ 13   1 919 102   2 180   0   2  10   0]
+ [  5  16  13 666   4  86   1   6   4   1]
+ [  9  81   5   3 555  11  48 279   7  28]
+ [  2   3  11 126   7 525   0   4   1   0]
+ [  1 129   1   0 116   0 840  30   8  41]
+ [  2  17   1   0  64   4  13 297   1  11]
+ [132  41  30  56  79  85  18 116 802 360]
+ [ 13   4   0   5  48   3  20 100  49 507]]
+14/05/2020 10:41:52
+14/05/2020 10:44:37
+(3.7.4)[xwang145@jhu.edu@compute0753 cnn]$
+(3.7.4)[xwang145@jhu.edu@compute0753 cnn]$ python test.py /work-zfs/mschatz1/xwang145/data/long_reads/read_500_error_10 cnn_epoch_3.i_219999.pth
+Testing on 1000 reads per species
+Testing on 10000 reads total
+Opening long reads file: NC_004113.reads.500bp.fa
+Opening long reads file: NC_020246.reads.500bp.fa
+Opening long reads file: NC_014374.reads.500bp.fa
+Opening long reads file: NC_023013.reads.500bp.fa
+Opening long reads file: NC_014494.reads.500bp.fa
+Opening long reads file: NC_009515.reads.500bp.fa
+Opening long reads file: NC_008698.reads.500bp.fa
+Opening long reads file: NZ_LN832404.reads.500bp.fa
+Opening long reads file: NC_018621.reads.500bp.fa
+Opening long reads file: NC_010117.reads.500bp.fa
+Compute outputs
+---------------
+Accuracy by class
+NC_004113 : 40 %
+NC_020246 : 67 %
+NC_014374 : 46 %
+NC_023013 : 75 %
+NC_014494 : 46 %
+NC_009515 : 62 %
+NC_008698 : 54 %
+NZ_LN832404 : 59 %
+NC_018621 : 45 %
+NC_010117 : 59 %
+Overall accuracy on test set
+55 %
+Confusion Matrix
+saved to /work-zfs/mschatz1/xwang145/data/cnn/read_500_error_10/confusion_matrix.cnn_epoch_3.i_219999.pth.npy
+[[401   2  21  23   4   0  45 140   1  11]
+ [  2 670  17   1 168 202   3  21 219  26]
+ [ 20   5 466  44   3   0  86  17   5   3]
+ [ 26   1 120 757   1   0 200   9   0   0]
+ [ 41  81  17   7 461 100  20  36 198  71]
+ [  1  87   0   0  96 621   0  10  35  35]
+ [ 30   0 212 124   9   1 544  31   8   4]
+ [449  20 127  37  38  14  82 599  23 171]
+ [  4 125  16   6 193  40  17  17 452  88]
+ [ 26   9   4   1  27  22   3 120  59 591]]
+14/05/2020 10:44:39
+14/05/2020 10:47:23
+(3.7.4)[xwang145@jhu.edu@compute0753 cnn]$
+(3.7.4)[xwang145@jhu.edu@compute0753 cnn]$ python test.py /work-zfs/mschatz1/xwang145/data/long_reads/read_1000_error_1 cnn_epoch_1.i_219999.pth
+Testing on 1000 reads per species
+Testing on 10000 reads total
+Opening long reads file: NC_010117.reads.1000bp.fa
+Opening long reads file: NC_023013.reads.1000bp.fa
+Opening long reads file: NC_014374.reads.1000bp.fa
+Opening long reads file: NC_009515.reads.1000bp.fa
+Opening long reads file: NC_018621.reads.1000bp.fa
+Opening long reads file: NC_008698.reads.1000bp.fa
+Opening long reads file: NC_020246.reads.1000bp.fa
+Opening long reads file: NZ_LN832404.reads.1000bp.fa
+Opening long reads file: NC_004113.reads.1000bp.fa
+Opening long reads file: NC_014494.reads.1000bp.fa
+Compute outputs
+---------------
+Accuracy by class
+NC_010117 : 80 %
+NC_023013 : 94 %
+NC_014374 : 47 %
+NC_009515 : 85 %
+NC_018621 : 33 %
+NC_008698 : 69 %
+NC_020246 : 74 %
+NZ_LN832404 : 58 %
+NC_004113 : 85 %
+NC_014494 : 81 %
+Overall accuracy on test set
+71 %
+Confusion Matrix
+saved to /work-zfs/mschatz1/xwang145/data/cnn/read_1000_error_1/confusion_matrix.cnn_epoch_1.i_219999.pth.npy
+[[802   0   0   5  24   1   0  99   5  14]
+ [  0 944 203   0   0 214   0   6  12   0]
+ [  0   2 474   0   0  15   7   0   0   0]
+ [ 27   0   0 857  12   0  64  12   0  93]
+ [ 13   1   0   1 333   0  42   4   0  22]
+ [  0  29 234   0   6 698   2   4   9   6]
+ [  1   0   4  37  50   1 744   5   1  34]
+ [ 80   6  36   0   9   8   1 580  94   2]
+ [ 14  12  43   1   2  55   4 264 859  14]
+ [ 63   6   6  99 564   8 136  26  20 815]]
+14/05/2020 10:47:25
+14/05/2020 10:56:55
+(3.7.4)[xwang145@jhu.edu@compute0753 cnn]$
+(3.7.4)[xwang145@jhu.edu@compute0753 cnn]$ python test.py /work-zfs/mschatz1/xwang145/data/long_reads/read_1000_error_10 cnn_epoch_1.i_49999.pth
+Testing on 1000 reads per species
+Testing on 10000 reads total
+Opening long reads file: NC_020246.reads.1000bp.fa
+Opening long reads file: NC_008698.reads.1000bp.fa
+Opening long reads file: NC_014494.reads.1000bp.fa
+Opening long reads file: NC_004113.reads.1000bp.fa
+Opening long reads file: NZ_LN832404.reads.1000bp.fa
+Opening long reads file: NC_009515.reads.1000bp.fa
+Opening long reads file: NC_018621.reads.1000bp.fa
+Opening long reads file: NC_010117.reads.1000bp.fa
+Opening long reads file: NC_023013.reads.1000bp.fa
+Opening long reads file: NC_014374.reads.1000bp.fa
+Compute outputs
+---------------
+Accuracy by class
+NC_020246 : 70 %
+NC_008698 : 50 %
+NC_014494 : 64 %
+NC_004113 : 72 %
+NZ_LN832404 : 73 %
+NC_009515 : 78 %
+NC_018621 : 54 %
+NC_010117 : 46 %
+NC_023013 : 87 %
+NC_014374 : 69 %
+Overall accuracy on test set
+66 %
+Confusion Matrix
+saved to /work-zfs/mschatz1/xwang145/data/cnn/read_1000_error_10/confusion_matrix.cnn_epoch_1.i_49999.pth.npy
+[[707   1  56   1  11  98  88   7   2   3]
+ [  0 506   4   4   2   0   1   0  44  43]
+ [106  23 645  17  20  66 268  38   3   5]
+ [  4  66  11 723 189   1   1   6  31  32]
+ [ 10  75  42 231 731   7  40 411   9  65]
+ [ 60   0  78   0   6 782  14  26   0   0]
+ [ 99   4 139   2   6  25 548  44   2   3]
+ [  1   0  20   0  21  21  39 468   0   0]
+ [  0 239   1  17   5   0   1   0 876 151]
+ [ 13  86   4   5   9   0   0   0  33 698]]
+14/05/2020 10:56:57
+14/05/2020 11:04:48
+(3.7.4)[xwang145@jhu.edu@compute0753 cnn]$
+(3.7.4)[xwang145@jhu.edu@compute0753 cnn]$

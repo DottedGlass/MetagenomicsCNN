@@ -1,0 +1,260 @@
++----------------------------------------------------------------+
+|   Group Balance. Use 'sbalance' or 'sbalance -f' to see more   |
++-----------+---------------+---------------+---------+----------+
+|   Account | User/NumUsers | Allocation(h) | Used(h) | Usage(%) |
++-----------+---------------+---------------+---------+----------+
+| abattle4* |            38 |        250000 |   31388 |    12.56 |
+|  mschatz1 |            40 |        600000 |   20864 |     3.48 |
++-----------+---------------+---------------+---------+----------+
++--------------------------------------------+
+|  $HOME quota: login is disabled when full  |
++-------------+-------------+----------------+
+|    Usage GB |      Max GB |   Last Updated |
++-------------+-------------+----------------+
+|       2.274 |      50.000 |        11:44AM |
++-------------+-------------+----------------+
++--------------------------------------------------------------------------------------------+
+|   Scratch quota: group mschatz1. Last Update: 10:01AM. Use 'scratchquota -f' to see more   |
++------------------------+----------------+----------------+----------------+----------------+
+|         Group/Username |       Usage TB |         Max TB |          Files |      Max Files |
++------------------------+----------------+----------------+----------------+----------------+
+|               mschatz1 |         43.159 |         90.000 |       86674941 |      314572800 |
+|       xwang145@jhu.edu |          0.198 |              - |           6974 |              - |
++------------------------+----------------+----------------+----------------+----------------+
+(3.7.4)[xwang145@jhu.edu@bc-login01 ~]$ cd code/MetagenomicsCNN/cnn/
+(3.7.4)[xwang145@jhu.edu@bc-login01 cnn]$ interact -n 6 -t 2:0:0 -p gpuk80 -g 1
+Tasks:    6
+Cores/task: 1
+Total cores: 6
+Walltime: 2:0:0
+Reservation:
+Queue:    gpuk80
+Command submitted: salloc -J interact -N 1-1 -n 6 --time=2:0:0 --gres=gpu:1 -p gpuk80 srun --pty bash
+salloc: Pending job allocation 44197803
+salloc: job 44197803 queued and waiting for resources
+^Csalloc: Job allocation 44197803 has been revoked.
+salloc: Job aborted due to signal
+(3.7.4)[xwang145@jhu.edu@bc-login01 cnn]$ interact -n 6 -t 13:0:0 -p gpuk80 -g 1
+Tasks:    6
+Cores/task: 1
+Total cores: 6
+Walltime: 13:0:0
+Reservation:
+Queue:    gpuk80
+Command submitted: salloc -J interact -N 1-1 -n 6 --time=13:0:0 --gres=gpu:1 -p gpuk80 srun --pty bash
+salloc: Pending job allocation 44197814
+salloc: job 44197814 queued and waiting for resources
+salloc: job 44197814 has been allocated resources
+salloc: Granted job allocation 44197814
++----------------------------------------------------------------+
+|   Group Balance. Use 'sbalance' or 'sbalance -f' to see more   |
++-----------+---------------+---------------+---------+----------+
+|   Account | User/NumUsers | Allocation(h) | Used(h) | Usage(%) |
++-----------+---------------+---------------+---------+----------+
+| abattle4* |            38 |        250000 |   31385 |    12.55 |
+|  mschatz1 |            40 |        600000 |   20862 |     3.48 |
++-----------+---------------+---------------+---------+----------+
++--------------------------------------------+
+|  $HOME quota: login is disabled when full  |
++-------------+-------------+----------------+
+|    Usage GB |      Max GB |   Last Updated |
++-------------+-------------+----------------+
+|       2.274 |      50.000 |        11:44AM |
++-------------+-------------+----------------+
++--------------------------------------------------------------------------------------------+
+|   Scratch quota: group mschatz1. Last Update: 10:01AM. Use 'scratchquota -f' to see more   |
++------------------------+----------------+----------------+----------------+----------------+
+|         Group/Username |       Usage TB |         Max TB |          Files |      Max Files |
++------------------------+----------------+----------------+----------------+----------------+
+|               mschatz1 |         43.159 |         90.000 |       86674941 |      314572800 |
+|       xwang145@jhu.edu |          0.198 |              - |           6974 |              - |
++------------------------+----------------+----------------+----------------+----------------+
+(3.7.4)[xwang145@jhu.edu@gpu010 cnn]$ module restore mymodules
+Restoring modules from user's mymodules
+(3.7.4)[xwang145@jhu.edu@gpu010 cnn]$ ~/.conda/envs/metagenomics/bin/python train.py /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/long_reads/read_1000_error_10
+--Model output will be saved in--
+/home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10
+Opening long reads file: NC_020246.reads.1000bp.fa
+Opening long reads file: NC_008698.reads.1000bp.fa
+Opening long reads file: NC_014494.reads.1000bp.fa
+Opening long reads file: NC_004113.reads.1000bp.fa
+Opening long reads file: NZ_LN832404.reads.1000bp.fa
+Opening long reads file: NC_009515.reads.1000bp.fa
+Opening long reads file: NC_018621.reads.1000bp.fa
+Opening long reads file: NC_010117.reads.1000bp.fa
+Opening long reads file: NC_023013.reads.1000bp.fa
+Opening long reads file: NC_014374.reads.1000bp.fa
+13/05/2020 10:34:23 [1,  2000] loss: 1.894
+13/05/2020 10:39:45 [1,  4000] loss: 1.523
+13/05/2020 10:45:08 [1,  6000] loss: 1.439
+13/05/2020 10:50:30 [1,  8000] loss: 1.434
+13/05/2020 10:55:52 [1, 10000] loss: 1.386
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_0.i_9999.pth
+13/05/2020 11:01:16 [1, 12000] loss: 1.331
+13/05/2020 11:06:38 [1, 14000] loss: 1.299
+13/05/2020 11:12:00 [1, 16000] loss: 1.270
+13/05/2020 11:17:22 [1, 18000] loss: 1.225
+13/05/2020 11:22:44 [1, 20000] loss: 1.226
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_0.i_19999.pth
+13/05/2020 11:28:07 [1, 22000] loss: 1.201
+13/05/2020 11:33:29 [1, 24000] loss: 1.189
+13/05/2020 11:38:51 [1, 26000] loss: 1.162
+13/05/2020 11:44:13 [1, 28000] loss: 1.146
+13/05/2020 11:49:35 [1, 30000] loss: 1.112
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_0.i_29999.pth
+13/05/2020 11:54:59 [1, 32000] loss: 1.115
+13/05/2020 12:00:21 [1, 34000] loss: 1.102
+13/05/2020 12:05:43 [1, 36000] loss: 1.108
+13/05/2020 12:11:05 [1, 38000] loss: 1.086
+13/05/2020 12:16:28 [1, 40000] loss: 1.066
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_0.i_39999.pth
+13/05/2020 12:21:53 [1, 42000] loss: 1.061
+13/05/2020 12:27:17 [1, 44000] loss: 1.048
+13/05/2020 12:32:41 [1, 46000] loss: 1.032
+13/05/2020 12:38:05 [1, 48000] loss: 1.053
+13/05/2020 12:43:28 [1, 50000] loss: 1.036
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_0.i_49999.pth
+13/05/2020 12:48:53 [1, 52000] loss: 1.003
+13/05/2020 12:54:17 [1, 54000] loss: 0.994
+13/05/2020 12:59:41 [1, 56000] loss: 0.997
+13/05/2020 13:05:05 [1, 58000] loss: 0.987
+13/05/2020 13:10:29 [1, 60000] loss: 0.997
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_0.i_59999.pth
+13/05/2020 13:15:53 [1, 62000] loss: 0.991
+13/05/2020 13:21:17 [1, 64000] loss: 0.986
+13/05/2020 13:26:41 [1, 66000] loss: 0.991
+13/05/2020 13:32:05 [1, 68000] loss: 0.985
+13/05/2020 13:37:29 [1, 70000] loss: 0.985
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_0.i_69999.pth
+13/05/2020 13:42:54 [1, 72000] loss: 0.972
+13/05/2020 13:48:18 [1, 74000] loss: 0.970
+13/05/2020 13:53:42 [1, 76000] loss: 0.945
+13/05/2020 13:59:06 [1, 78000] loss: 0.970
+13/05/2020 14:04:28 [1, 80000] loss: 0.946
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_0.i_79999.pth
+13/05/2020 14:09:52 [1, 82000] loss: 0.926
+13/05/2020 14:15:14 [1, 84000] loss: 0.924
+13/05/2020 14:20:37 [1, 86000] loss: 0.929
+13/05/2020 14:25:59 [1, 88000] loss: 0.947
+13/05/2020 14:31:22 [1, 90000] loss: 0.929
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_0.i_89999.pth
+13/05/2020 14:36:45 [1, 92000] loss: 0.930
+13/05/2020 14:42:07 [1, 94000] loss: 0.931
+13/05/2020 14:47:30 [1, 96000] loss: 0.938
+13/05/2020 14:52:52 [1, 98000] loss: 0.930
+13/05/2020 14:58:14 [1, 100000] loss: 0.923
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_0.i_99999.pth
+13/05/2020 15:03:37 [1, 102000] loss: 0.906
+13/05/2020 15:09:00 [1, 104000] loss: 0.915
+13/05/2020 15:14:24 [1, 106000] loss: 0.910
+13/05/2020 15:19:47 [1, 108000] loss: 0.916
+13/05/2020 15:25:11 [1, 110000] loss: 0.901
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_0.i_109999.pth
+13/05/2020 15:30:36 [1, 112000] loss: 0.925
+13/05/2020 15:36:00 [1, 114000] loss: 0.906
+13/05/2020 15:41:23 [1, 116000] loss: 0.936
+13/05/2020 15:46:47 [1, 118000] loss: 0.890
+13/05/2020 15:52:11 [1, 120000] loss: 0.888
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_0.i_119999.pth
+13/05/2020 15:57:36 [1, 122000] loss: 0.901
+13/05/2020 16:02:59 [1, 124000] loss: 0.899
+13/05/2020 16:08:23 [1, 126000] loss: 0.894
+13/05/2020 16:13:47 [1, 128000] loss: 0.883
+13/05/2020 16:19:11 [1, 130000] loss: 0.877
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_0.i_129999.pth
+13/05/2020 16:24:36 [1, 132000] loss: 0.904
+13/05/2020 16:29:59 [1, 134000] loss: 0.871
+13/05/2020 16:35:23 [1, 136000] loss: 0.890
+13/05/2020 16:40:47 [1, 138000] loss: 0.890
+13/05/2020 16:46:10 [1, 140000] loss: 0.898
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_0.i_139999.pth
+13/05/2020 16:51:34 [1, 142000] loss: 0.883
+13/05/2020 16:56:58 [1, 144000] loss: 0.880
+13/05/2020 17:02:21 [1, 146000] loss: 0.850
+13/05/2020 17:07:45 [1, 148000] loss: 0.875
+13/05/2020 17:13:08 [1, 150000] loss: 0.889
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_0.i_149999.pth
+13/05/2020 17:18:32 [1, 152000] loss: 0.880
+13/05/2020 17:23:56 [1, 154000] loss: 0.860
+13/05/2020 17:29:19 [1, 156000] loss: 0.860
+13/05/2020 17:34:43 [1, 158000] loss: 0.876
+13/05/2020 17:40:07 [1, 160000] loss: 0.874
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_0.i_159999.pth
+13/05/2020 17:45:31 [1, 162000] loss: 0.879
+13/05/2020 17:50:55 [1, 164000] loss: 0.868
+13/05/2020 17:56:18 [1, 166000] loss: 0.865
+13/05/2020 18:01:42 [1, 168000] loss: 0.852
+13/05/2020 18:07:05 [1, 170000] loss: 0.873
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_0.i_169999.pth
+13/05/2020 18:12:29 [1, 172000] loss: 0.853
+13/05/2020 18:17:52 [1, 174000] loss: 0.858
+13/05/2020 18:23:16 [1, 176000] loss: 0.849
+13/05/2020 18:28:39 [1, 178000] loss: 0.851
+13/05/2020 18:34:03 [1, 180000] loss: 0.860
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_0.i_179999.pth
+13/05/2020 18:39:27 [1, 182000] loss: 0.871
+13/05/2020 18:44:51 [1, 184000] loss: 0.873
+13/05/2020 18:50:14 [1, 186000] loss: 0.858
+^[[A13/05/2020 18:55:38 [1, 188000] loss: 0.862
+13/05/2020 19:01:01 [1, 190000] loss: 0.862
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_0.i_189999.pth
+13/05/2020 19:06:26 [1, 192000] loss: 0.857
+13/05/2020 19:11:49 [1, 194000] loss: 0.865
+13/05/2020 19:17:12 [1, 196000] loss: 0.832
+13/05/2020 19:22:36 [1, 198000] loss: 0.860
+13/05/2020 19:27:59 [1, 200000] loss: 0.838
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_0.i_199999.pth
+13/05/2020 19:33:23 [1, 202000] loss: 0.826
+13/05/2020 19:38:47 [1, 204000] loss: 0.874
+13/05/2020 19:44:10 [1, 206000] loss: 0.840
+13/05/2020 19:49:33 [1, 208000] loss: 0.836
+13/05/2020 19:54:57 [1, 210000] loss: 0.853
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_0.i_209999.pth
+13/05/2020 20:00:21 [1, 212000] loss: 0.826
+13/05/2020 20:05:44 [1, 214000] loss: 0.862
+13/05/2020 20:11:08 [1, 216000] loss: 0.841
+13/05/2020 20:16:31 [1, 218000] loss: 0.839
+13/05/2020 20:21:55 [1, 220000] loss: 0.831
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_0.i_219999.pth
+13/05/2020 20:27:19 [1, 222000] loss: 0.841
+13/05/2020 20:32:43 [1, 224000] loss: 0.844
+13/05/2020 20:38:06 [1, 226000] loss: 0.857
+13/05/2020 20:43:30 [1, 228000] loss: 0.832
+13/05/2020 20:50:24 [2,  2000] loss: 0.597
+13/05/2020 20:55:51 [2,  4000] loss: 0.582
+13/05/2020 21:01:17 [2,  6000] loss: 0.592
+13/05/2020 21:06:44 [2,  8000] loss: 0.558
+13/05/2020 21:12:11 [2, 10000] loss: 0.552
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_1.i_9999.pth
+13/05/2020 21:17:39 [2, 12000] loss: 0.593
+13/05/2020 21:23:05 [2, 14000] loss: 0.574
+13/05/2020 21:28:32 [2, 16000] loss: 0.565
+13/05/2020 21:33:59 [2, 18000] loss: 0.562
+13/05/2020 21:39:26 [2, 20000] loss: 0.573
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_1.i_19999.pth
+13/05/2020 21:44:54 [2, 22000] loss: 0.575
+13/05/2020 21:50:21 [2, 24000] loss: 0.574
+13/05/2020 21:55:48 [2, 26000] loss: 0.561
+13/05/2020 22:01:16 [2, 28000] loss: 0.577
+13/05/2020 22:06:43 [2, 30000] loss: 0.568
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_1.i_29999.pth
+13/05/2020 22:12:11 [2, 32000] loss: 0.562
+13/05/2020 22:17:38 [2, 34000] loss: 0.599
+13/05/2020 22:23:05 [2, 36000] loss: 0.569
+13/05/2020 22:28:33 [2, 38000] loss: 0.573
+13/05/2020 22:34:00 [2, 40000] loss: 0.582
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_1.i_39999.pth
+13/05/2020 22:39:26 [2, 42000] loss: 0.592
+13/05/2020 22:44:51 [2, 44000] loss: 0.581
+13/05/2020 22:50:16 [2, 46000] loss: 0.589
+13/05/2020 22:55:43 [2, 48000] loss: 0.575
+13/05/2020 23:01:11 [2, 50000] loss: 0.578
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_1.i_49999.pth
+13/05/2020 23:06:39 [2, 52000] loss: 0.576
+13/05/2020 23:12:06 [2, 54000] loss: 0.568
+13/05/2020 23:17:34 [2, 56000] loss: 0.608
+13/05/2020 23:23:02 [2, 58000] loss: 0.572
+salloc: Job 44197814 has exceeded its time limit and its allocation has been revoked.
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+srun: error: Timed out waiting for job step to complete
+(3.7.4)[xwang145@jhu.edu@bc-login01 cnn]$
