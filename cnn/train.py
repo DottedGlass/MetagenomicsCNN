@@ -22,7 +22,7 @@ def main():
 	reads_dir = args.reads_dir
 
 	# reads_dir = '/work-zfs/mschatz1/xwang145/data/long_reads/read_1000_error_1'
-	cnn_dir = '/work-zfs/mschatz1/xwang145/data/cnn'
+	cnn_dir = '../data/cnn'
 	kmer_length = 50
 	test_percent = 0.2
 	max_epochs = 100
