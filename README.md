@@ -59,6 +59,8 @@ python train.py /work-zfs/mschatz1/xwang145/data/long_reads/read_1000_error_1
 
 python train.py /work-zfs/mschatz1/xwang145/data/long_reads/read_1000_error_10
 ```
+
+## Train CNN Wed
 ### read_500_error_1
 ```
 13/05/2020 23:22:19 [3, 50000] loss: 0.501
@@ -83,15 +85,42 @@ Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_err
 Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_1.i_49999.pth
 ```
 
+## Train CNN Thurs
+### read_500_error_1
+```
+14/05/2020 10:34:41 [4, 290000] loss: 0.447
+Saved: /work-zfs/mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_3.i_289999.pth
+```
+
+### read_500_error_10
+```
+14/05/2020 10:37:19 [4, 220000] loss: 0.799
+Saved: /work-zfs/mschatz1/xwang145/data/cnn/read_500_error_10/cnn_epoch_3.i_219999.pth
+```
+
+### read_1000_error_1
+```
+14/05/2020 10:26:26 [2, 220000] loss: 0.444
+Saved: /work-zfs/mschatz1/xwang145/data/cnn/read_1000_error_1/cnn_epoch_1.i_219999.pth
+```
+
+### read_1000_error_10
+```
+13/05/2020 23:01:11 [2, 50000] loss: 0.578
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_1.i_49999.pth
+```
+
+
 ## Test CNN
 Code is in `cnn`
 ```
-python test.py /work-zfs/mschatz1/xwang145/data/long_reads/read_500_error_1 cnn_epoch_2.i_49999.pth
+python test.py /work-zfs/mschatz1/xwang145/data/long_reads/read_500_error_1 cnn_epoch_3.i_289999.pth
 
-python test.py /work-zfs/mschatz1/xwang145/data/long_reads/read_500_error_10 cnn_epoch_2.i_9999.pth
+python test.py /work-zfs/mschatz1/xwang145/data/long_reads/read_500_error_10 cnn_epoch_3.i_219999.pth
 
-python test.py /work-zfs/mschatz1/xwang145/data/long_reads/read_1000_error_1 cnn_epoch_1.i_19999.pth
+python test.py /work-zfs/mschatz1/xwang145/data/long_reads/read_1000_error_1 cnn_epoch_1.i_219999.pth
 
 python test.py /work-zfs/mschatz1/xwang145/data/long_reads/read_1000_error_10 cnn_epoch_1.i_49999.pth
 
+echo "Done"
 ```
