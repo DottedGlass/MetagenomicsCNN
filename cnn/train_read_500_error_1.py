@@ -110,31 +110,30 @@ def main():
 	for epoch in range(prev_epoch,max_epochs):
 		running_loss = 0.0
 		# training
-		for i, local_data in enumerate(trainloader):
-			if i > batch_num:
-				# get samples and labels
-				local_batch, local_labels = local_data
-				# Transfer to GPU
-				local_batch, local_labels = local_batch.to(device), local_labels.to(device)
+		for i, local_data in enumerate(trainloader, start=batch_num+1):
+			# get samples and labels
+			local_batch, local_labels = local_data
+			# Transfer to GPU
+			local_batch, local_labels = local_batch.to(device), local_labels.to(device)
 
-				optimizer.zero_grad()
-				outputs = net(local_batch.float())
-				loss = criterion(outputs, local_labels)
-				loss.backward()
-				optimizer.step()
+			optimizer.zero_grad()
+			outputs = net(local_batch.float())
+			loss = criterion(outputs, local_labels)
+			loss.backward()
+			optimizer.step()
 
-				running_loss += loss.item()
-				if i % 2000 == 1999:
-					now = datetime.now()
-					dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-					print('%s [%d, %5d] loss: %.3f' % (dt_string, epoch+1, i+1, running_loss / 2000))
-					running_loss = 0.0
+			running_loss += loss.item()
+			if i % 2000 == 1999:
+				now = datetime.now()
+				dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+				print('%s [%d, %5d] loss: %.3f' % (dt_string, epoch+1, i+1, running_loss / 2000))
+				running_loss = 0.0
 
-				# save progress after every 10000 batches
-				if i % 10000 == 9999:
-					cnn_save_name = os.path.join(cnn_dir, "cnn_epoch_" + str(epoch) + ".i_" + str(i) + ".pth")
-					torch.save(net.state_dict(), cnn_save_name)
-					print('Saved:',cnn_save_name)
+			# save progress after every 10000 batches
+			if i % 10000 == 9999:
+				cnn_save_name = os.path.join(cnn_dir, "cnn_epoch_" + str(epoch) + ".i_" + str(i) + ".pth")
+				torch.save(net.state_dict(), cnn_save_name)
+				print('Saved:',cnn_save_name)
 
 
 	cnn_save_name_final = os.path.join(cnn_dir, "cnn_final.pth")
