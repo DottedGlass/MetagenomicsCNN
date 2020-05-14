@@ -20,6 +20,7 @@ def main():
 	# variables to change
 	args = parser.parse_args()
 	reads_dir = args.reads_dir
+
 	# reads_dir = '/work-zfs/mschatz1/xwang145/data/long_reads/read_1000_error_1'
 	cnn_dir = '/work-zfs/mschatz1/xwang145/data/cnn'
 	kmer_length = 50
