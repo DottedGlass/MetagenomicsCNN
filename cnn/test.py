@@ -78,6 +78,8 @@ total = 0
 label_list = []
 label_correct = []
 predicted_list = []
+print("Compute outputs")
+print("---------------")
 with torch.no_grad():
 	for i, local_data in enumerate(testloader):
 		# get samples and labels
@@ -94,7 +96,7 @@ with torch.no_grad():
 		predicted_list.append(predicted)
 		label_correct.append((predicted == local_labels).sum().item())
 
-		if i % 2000 == 1999:
+		if i % 200 == 199:
 			print("computed output on " + str(i+1) + " reads")
 
 print('Accuracy of the network on the test reads: %d %%' % (100 * correct / total))
