@@ -26,11 +26,12 @@ for dump in dump_list:
 		temp_set = temp_set - kmer_dict[t]
 	dump_name = dump.split('_')
 	genome_label.append('_'.join(dump_name[:2]))
-	unique_count.append(len(temp_set))
+	unique_count.append(len(temp_set)/len(kmer_dict[dump]))
 
 fig, axes = plt.subplots(tight_layout=True)
 bar = axes.bar(genome_label, unique_count)
 axes.set_xlabel('Genome Name')
-axes.set_ylabel('Unique 50-mer count')
+#axes.set_ylabel('Unique 50-mer count')
+axes.set_ylabel('Unique 50-mer ratio')
 plt.xticks(rotation=45)
-plt.savefig('figure.png')
+plt.savefig('kmer_unique_percent.png')
