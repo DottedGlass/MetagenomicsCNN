@@ -11,7 +11,7 @@ A pipeline to classify metagenomics reads by their taxonomy by using convolution
 ## Python and mason
 Use `conda` to create an environment from the .yml file. Mason will be installed from bioconda.
 ```
-conda env create -f environment.yml`
+conda env create -f environment.yml
 conda activate metagenomics
 ```
 
