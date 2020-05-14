@@ -6,6 +6,52 @@ from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 from Bio.Alphabet import generic_dna
 
+def main():
+    # parse arguments
+    parser = argparse.ArgumentParser(description='Simulate long reads')
+    parser.add_argument('read_length', type=int, help='Length of reads')
+    parser.add_argument('error_rate', type=int, help='Percent error on reads')
+    parser.add_argument('coverage', type=int, help='Amount of coverage to simulate')
+    args = parser.parse_args()
+
+    # simulation parameters
+    readlength = args.read_length
+    error_rate = args.error_rate
+    coverage = args.coverage
+
+    # list of species
+    species_list = ['NC_010117', 'NZ_LN832404', 'NC_018621', 'NC_014494', 'NC_004113', 'NC_009515', 'NC_023013', 'NC_008698', 'NC_020246', 'NC_014374']
+
+    # directories
+    refseq_dir = "../data/RefSeq/"
+    out_dir = "../data/long_reads/read_" + str(readlength) + "_error_" + str(error_rate) +  '/'
+    if not os.path.exists(out_dir): # create output directory if it already doesn't exist
+        os.makedirs(out_dir)
+
+    num_reads_list = []
+
+    # run simulation
+    for species in species_list:
+        genome_file = refseq_dir + species + ".fasta"
+        sim_reads_file = out_dir + species +  ".reads." + str(readlength) + "bp.fa"
+
+        # compute number of reads based on coverage
+        genome = str(list(SeqIO.parse(genome_file,"fasta"))[0].seq)
+        num_reads = int(np.ceil(len(genome)*coverage/readlength))
+        num_reads_list.append(num_reads)
+
+        nanopore_simulator(genome_file, num_reads, readlength, error_rate, sim_reads_file, circular=True)
+
+    # save simulation paramters to text file
+    with open(out_dir + "parameters.txt", "w") as f:
+        f.write("Length of reads: " + str(readlength) + "\n")
+        f.write("Error rate: " + str(error_rate) + "\n")
+        f.write("Coverage: " + str(coverage) + "\n")
+        f.write("Number of samples\n")
+        f.write("-----------------\n")
+        for species, num_reads in zip(species_list, num_reads_list):
+            f.write(species + ": " + str(num_reads) + "\n")
+
 def nanopore_simulator(genome_file, num_reads, readlength, error_rate, sim_reads_file, circular=False):
     """Simulates long reads
 
@@ -70,48 +116,4 @@ def nanopore_simulator(genome_file, num_reads, readlength, error_rate, sim_reads
 
 
 if __name__ == "__main__":
-
-    # parse arguments
-    parser = argparse.ArgumentParser(description='Simulate long reads')
-    parser.add_argument('read_length', type=int, help='Length of reads')
-    parser.add_argument('error_rate', type=int, help='Percent error on reads')
-    parser.add_argument('coverage', type=int, help='Amount of coverage to simulate')
-    args = parser.parse_args()
-
-    # simulation parameters
-    readlength = args.read_length
-    error_rate = args.error_rate
-    coverage = args.coverage
-
-    # list of species
-    species_list = ['NC_010117', 'NZ_LN832404', 'NC_018621', 'NC_014494', 'NC_004113', 'NC_009515', 'NC_023013', 'NC_008698', 'NC_020246', 'NC_014374']
-
-    # directories
-    refseq_dir = "../data/RefSeq/"
-    out_dir = "../data/long_reads/read_" + str(readlength) + "_error_" + str(error_rate) +  '/'
-    if not os.path.exists(out_dir): # create output directory if it already doesn't exist
-        os.makedirs(out_dir)
-
-    num_reads_list = []
-
-    # run simulation
-    for species in species_list:
-        genome_file = refseq_dir + species + ".fasta"
-        sim_reads_file = out_dir + species +  ".reads." + str(readlength) + "bp.fa"
-
-        # compute number of reads based on coverage
-        genome = str(list(SeqIO.parse(genome_file,"fasta"))[0].seq)
-        num_reads = int(np.ceil(len(genome)*coverage/readlength))
-        num_reads_list.append(num_reads)
-
-        nanopore_simulator(genome_file, num_reads, readlength, error_rate, sim_reads_file, circular=True)
-
-    # save simulation paramters to text file
-    with open(out_dir + "parameters.txt", "w") as f:
-        f.write("Length of reads: " + str(readlength) + "\n")
-        f.write("Error rate: " + str(error_rate) + "\n")
-        f.write("Coverage: " + str(coverage) + "\n")
-        f.write("Number of samples\n")
-        f.write("-----------------\n")
-        for species, num_reads in zip(species_list, num_reads_list):
-            f.write(species + ": " + str(num_reads) + "\n")
+    main()
