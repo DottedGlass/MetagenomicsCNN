@@ -26,9 +26,7 @@ def main():
 	reads_dir = args.reads_dir
 	cnn_model_file = args.cnn_model_file
 
-	# reads_dir = '/work-zfs/mschatz1/xwang145/data/long_reads/read_1000_error_1'
-	cnn_dir = '/work-zfs/mschatz1/xwang145/data/cnn'
-	# cnn_model_file = 'cnn_epoch_1.i_19999.pth'
+	cnn_dir = '../data/cnn'
 	kmer_length = 50
 	max_num_samples_per_species = 1000
 	batch_size = 4
@@ -111,6 +109,16 @@ def main():
 				class_true.append(local_labels[i].item())
 				class_correct[local_label] += c[i].item()
 				class_total[local_label] += 1
+
+
+	# sort species by alphabetical order
+	sort_index = np.argsort(species_list)
+	species_list = [species_list[x] for x in sort_index]
+	class_correct = [class_correct[x] for x in sort_index]
+	class_total = [class_total[x] for x in sort_index]
+	class_predict = [sort_index[y] for y in class_predict]
+	class_true = [sort_index[y] for y in class_true]
+
 
 	print('Accuracy by class')
 	for i in range(num_species):
