@@ -120,7 +120,7 @@ def main():
 
 	print('Confusion Matrix')
 	cf_m = confusion_matrix(class_predict, class_true)
-	cf_m_file = os.path.join(cnn_dir,'confusion_matrix.npy')
+	cf_m_file = os.path.join(cnn_dir,'confusion_matrix.' + os.path.basename(cnn_model_file) + '.npy')
 	np.save(cf_m_file, cf_m)
 	print('saved to', cf_m_file)
 	print(cf_m)
