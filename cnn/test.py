@@ -15,10 +15,11 @@ from cnn import Net
 from dataset import Dataset
 
 # variables to change
-reads_dir = '/home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/long_reads/read_1000_error_1'
+reads_dir = '/work-zfs/mschatz1/xwang145/data/long_reads/read_1000_error_1'
 cnn_dir = '/work-zfs/mschatz1/xwang145/data/cnn'
 cnn_model_file = 'cnn_epoch_0.i_109999.pth'
 kmer_length = 50
+max_num_samples_per_species = 1000
 
 # file locations
 cnn_name = os.path.basename(reads_dir)
@@ -31,14 +32,29 @@ with open(param_file, 'r') as f:
 	read_length = int(f.readline().rstrip().split(': ')[1])
 
 reads_files = [f for f in os.listdir(reads_dir) if f.endswith('.fa')]
-num_classes = len(reads_files)
+num_species = len(reads_files)
 image_size = read_length - kmer_length + 1
 
 # retrieve testing parition and labels
 with open(os.path.join(cnn_dir,'test_list.pickle'), 'rb') as f:
-	test_list = pickle.load(f)
+	test_list_raw = pickle.load(f)
+
 with open(os.path.join(cnn_dir,'labels.pickle'), 'rb') as f:
 	labels_dict = pickle.load(f)
+
+test_dict = dict()
+test = []
+cur_label = 0
+for ID in test_list_raw:
+	label = labels_dict[ID]
+	if label == cur_label:
+		test.append(ID)
+	if len(test) == max_num_samples_per_species:
+		test_dict[cur_label] = test
+		test = []
+		cur_label += 1
+
+test_list = sum(test_dict.values(), [])
 
 print("Testing on " + str(len(test_list)) + " reads" )
 
@@ -53,7 +69,7 @@ device = torch.device("cuda:0" if use_cuda else "cpu")
 if use_cuda: torch.backends.cudnn.benchmark = True
 
 # initialize CNN
-net = Net(image_size, num_classes)
+net = Net(image_size, num_species)
 net.load_state_dict(torch.load(cnn_model_file, map_location=device))
 net.to(device)
 
@@ -69,7 +85,6 @@ with torch.no_grad():
 		# Transfer to GPU
 		local_batch, local_labels = local_batch.to(device), local_labels.to(device)
 
-		print("compute output on read " + str(i))
 		outputs = net(local_batch.float())
 		_, predicted = torch.max(outputs.data, 1)
 		total += local_labels.size(0)
@@ -78,6 +93,9 @@ with torch.no_grad():
 		label_list.append(local_labels)
 		predicted_list.append(predicted)
 		label_correct.append((predicted == local_labels).sum().item())
+
+		if i % 2000 == 1999:
+			print("computed output on " + str(i+1) + " reads")
 
 print('Accuracy of the network on the test reads: %d %%' % (100 * correct / total))
 
