@@ -86,5 +86,12 @@ Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_err
 ## Test CNN
 Code is in `cnn`
 ```
+python test.py /work-zfs/mschatz1/xwang145/data/long_reads/read_500_error_1 cnn_epoch_2.i_49999.pth
+
+python test.py /work-zfs/mschatz1/xwang145/data/long_reads/read_500_error_10 cnn_epoch_2.i_9999.pth
+
+python test.py /work-zfs/mschatz1/xwang145/data/long_reads/read_1000_error_1 cnn_epoch_1.i_19999.pth
+
+python test.py /work-zfs/mschatz1/xwang145/data/long_reads/read_1000_error_10 cnn_epoch_1.i_49999.pth
 
 ```
