@@ -49,7 +49,7 @@ def main():
 			num_samples[species] = int(count)
 
 	reads_files = [f for f in os.listdir(reads_dir) if f.endswith('.fa')]
-	num_classes = len(reads_files)
+	num_species = len(reads_files)
 	image_size = read_length - kmer_length + 1
 
 	# make training and testing partition
@@ -94,7 +94,7 @@ def main():
 	torch.backends.cudnn.benchmark = True
 
 	# initialize CNN
-	net = Net(image_size, num_classes)
+	net = Net(image_size, num_species)
 	net.to(device)
 
 	# define loss function and optimizer
