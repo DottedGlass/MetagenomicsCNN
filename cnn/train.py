@@ -20,7 +20,7 @@ def main():
 	# variables to change
 	args = parser.parse_args()
 	reads_dir = args.reads_dir
-	# reads_dir = '/home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/long_reads/read_1000_error_1'
+	# reads_dir = '/work-zfs/mschatz1/xwang145/data/long_reads/read_1000_error_1'
 	cnn_dir = '/work-zfs/mschatz1/xwang145/data/cnn'
 	kmer_length = 50
 	test_percent = 0.2
@@ -124,7 +124,7 @@ def main():
 				print('%s [%d, %5d] loss: %.3f' % (dt_string, epoch+1, i+1, running_loss / 2000))
 				running_loss = 0.0
 
-			# save progress after every 10000 samples
+			# save progress after every 10000 batches
 			if i % 10000 == 9999:
 				cnn_save_name = os.path.join(cnn_dir, "cnn_epoch_" + str(epoch) + ".i_" + str(i) + ".pth")
 				torch.save(net.state_dict(), cnn_save_name)
