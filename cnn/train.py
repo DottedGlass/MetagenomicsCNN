@@ -21,7 +21,6 @@ def main():
 	args = parser.parse_args()
 	reads_dir = args.reads_dir
 
-	# reads_dir = '/work-zfs/mschatz1/xwang145/data/long_reads/read_1000_error_1'
 	cnn_dir = '../data/cnn'
 	kmer_length = 50
 	test_percent = 0.2
@@ -50,6 +49,7 @@ def main():
 			num_samples[species] = int(count)
 
 	reads_files = [f for f in os.listdir(reads_dir) if f.endswith('.fa')]
+	reads_files.sort() # sort species alphabetically
 	num_species = len(reads_files)
 	image_size = read_length - kmer_length + 1
 
