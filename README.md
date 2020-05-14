@@ -4,8 +4,6 @@ A pipeline to classify metagenomics reads by their taxonomy by using convolution
 
 `get_reads` - code to download RefSeq genomes and produce simulated reads
 
-`read2array`  - code to encode reads as 2D arrays ("images")
-
 `cnn` - code for Convolutional Neural Networks (CNN)
 
 # Dependencies
@@ -21,21 +19,25 @@ conda activate metagenomics
 
 1. Download genomes and produce simulated reads
 2. Train CNN
+3. Test CNN
 
 ## Download genomes and produce simulated reads
-Code is in `get_reads`
+All data (reference genomes, simulated reads, and pytorch  models) is saved to a folder called `data` that will be generated in the root of this repo.
 
-Download bacterial genomes from RefSeq as specified in `get_reads/ncbi_ids.csv`
+Download bacteria and archaea genomes from RefSeq as specified in `get_reads/ncbi_ids.csv`
+
+Code is in `get_reads`
 ```
 python download_refseq.py
 ```
 
-Simulate Illumina reads using mason simulator
+### Simulate Illumina reads using mason simulator
 ```
 bash simulate_reads_mason.sh
 ```
 
-Simulate Nanopore reads (50x coverage)
+### Simulate Nanopore reads (50x coverage).
+Syntax is `python nanopore_simulator [read length] [error rate] [coverage]`
 ```
 python nanopore_simulator.py 500 1 50
 python nanopore_simulator.py 500 2 50
@@ -49,78 +51,32 @@ python nanopore_simulator.py 1200 1 50
 ```
 
 ## Train CNN
+Previous step generated long reads that will be located in `data/long_reads`. The following code trains 4 CNNs on 4 sets of long reads. 20% of the data is held out for testing. Pytorch models are saved in `data/cnn`
+* Read length 500 with 1% error
+* Read length 500 with 10% error
+* Read length 1000 with 1% error
+* Read length 1000 with 10% error
+
+`cnn/train.py` loads all the long reads into memory. Each read in a batch is converted into a time series and then an image (Gramian Angular Field) before passed as input to the CNN for training. Conversion from reads to images during training was done instead of saving all the images first because of storage limits on our computing resource (MARCC). At 50x coverage, we need to write hundreds of thousands of images for each species, which is very memory intensive.
+
 Code is in `cnn`
-```
-python train.py /work-zfs/mschatz1/xwang145/data/long_reads/read_500_error_1
 
-python train.py /work-zfs/mschatz1/xwang145/data/long_reads/read_500_error_10
-
-python train.py /work-zfs/mschatz1/xwang145/data/long_reads/read_1000_error_1
-
-python train.py /work-zfs/mschatz1/xwang145/data/long_reads/read_1000_error_10
+Syntax is `python train.py [path to long reads]`
 ```
-
-## Train CNN Wed
-### read_500_error_1
+python train.py ../data/long_reads/read_500_error_1
+python train.py ../data/long_reads/read_500_error_10
+python train.py ../data/long_reads/read_1000_error_1
+python train.py ../data/long_reads/read_1000_error_10
 ```
-13/05/2020 23:22:19 [3, 50000] loss: 0.501
-Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_2.i_49999.pth
-```
-
-### read_500_error_10
-```
-d13/05/2020 23:22:03 [3, 10000] loss: 0.804
-Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_10/cnn_epoch_2.i_9999.pth
-```
-
-### read_1000_error_1
-```
-13/05/2020 22:56:50 [2, 20000] loss: 0.423
-Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_1/cnn_epoch_1.i_19999.pth
-```
-
-### read_1000_error_10
-```
-13/05/2020 23:01:11 [2, 50000] loss: 0.578
-Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_1.i_49999.pth
-```
-
-## Train CNN Thurs
-### read_500_error_1
-```
-14/05/2020 10:34:41 [4, 290000] loss: 0.447
-Saved: /work-zfs/mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_3.i_289999.pth
-```
-
-### read_500_error_10
-```
-14/05/2020 10:37:19 [4, 220000] loss: 0.799
-Saved: /work-zfs/mschatz1/xwang145/data/cnn/read_500_error_10/cnn_epoch_3.i_219999.pth
-```
-
-### read_1000_error_1
-```
-14/05/2020 10:26:26 [2, 220000] loss: 0.444
-Saved: /work-zfs/mschatz1/xwang145/data/cnn/read_1000_error_1/cnn_epoch_1.i_219999.pth
-```
-
-### read_1000_error_10
-```
-13/05/2020 23:01:11 [2, 50000] loss: 0.578
-Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_1000_error_10/cnn_epoch_1.i_49999.pth
-```
-
 
 ## Test CNN
+After training, you can test on the held out data.
+
 Code is in `cnn`
+Syntax is `python test.py [path to long reads] [path to model to test on]`
 ```
-python test.py /work-zfs/mschatz1/xwang145/data/long_reads/read_500_error_1 cnn_epoch_3.i_289999.pth
-
-python test.py /work-zfs/mschatz1/xwang145/data/long_reads/read_500_error_10 cnn_epoch_3.i_219999.pth
-
-python test.py /work-zfs/mschatz1/xwang145/data/long_reads/read_1000_error_1 cnn_epoch_1.i_219999.pth
-
-python test.py /work-zfs/mschatz1/xwang145/data/long_reads/read_1000_error_10 cnn_epoch_1.i_49999.pth
-
-echo "Done"
+python test.py ../data/long_reads/read_500_error_1 cnn_epoch_3.i_289999.pth
+python test.py ../data/long_reads/read_500_error_10 cnn_epoch_3.i_219999.pth
+python test.py ..data/long_reads/read_1000_error_1 cnn_epoch_1.i_219999.pth
+python test.py ../data/long_reads/read_1000_error_10 cnn_epoch_1.i_49999.pth
 ```
