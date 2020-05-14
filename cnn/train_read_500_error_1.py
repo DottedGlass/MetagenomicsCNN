@@ -25,7 +25,6 @@ def main():
 	cnn_model_file = 'cnn_epoch_2.i_49999.pth'
 	prev_epoch = 2
 	batch_num = 49999
-	cnn_model_file = os.path.join(cnn_dir,cnn_model_file)
 	kmer_length = 50
 	test_percent = 0.2
 	max_epochs = 100
@@ -35,6 +34,7 @@ def main():
 	cnn_dir = os.path.join(cnn_dir,cnn_name)
 	if not os.path.exists(cnn_dir):
 		os.makedirs(cnn_dir)
+	cnn_model_file = os.path.join(cnn_dir,cnn_model_file)
 
 	print("--Model output will be saved in--")
 	print(os.path.abspath(cnn_dir))
