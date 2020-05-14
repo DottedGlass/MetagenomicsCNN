@@ -1,6 +1,7 @@
 import os
 import pickle
 import argparse
+from datetime import datetime
 import numpy as np
 from sklearn.metrics import confusion_matrix
 import torch
@@ -30,6 +31,7 @@ def main():
 	# cnn_model_file = 'cnn_epoch_1.i_19999.pth'
 	kmer_length = 50
 	max_num_samples_per_species = 1000
+	batch_size = 4
 
 	# file locations
 	cnn_name = os.path.basename(reads_dir)
@@ -73,7 +75,7 @@ def main():
 	# generators
 	transform = transforms.Compose([transforms.ToTensor()])
 	testset = Dataset(reads_dir, reads_files, test_list, labels_dict, kmer_length, transform=transform)
-	testloader = data.DataLoader(testset, batch_size=4, shuffle=False, num_workers=2)
+	testloader = data.DataLoader(testset, batch_size=batch_size, shuffle=False, num_workers=2)
 
 	# CUDA for PyTorch
 	use_cuda = torch.cuda.is_available()
@@ -103,7 +105,7 @@ def main():
 			outputs = net(local_batch.float())
 			_, predicted = torch.max(outputs, 1)
 			c = (predicted == local_labels).squeeze()
-			for i in range(4):
+			for i in range(batch_size):
 				local_label = local_labels[i]
 				class_predict.append(predicted[i].item())
 				class_true.append(local_labels[i].item())
@@ -126,4 +128,11 @@ def main():
 	print(cf_m)
 
 if __name__ == "__main__":
+	start = datetime.now()
 	main()
+	end = datetime.now()
+
+	dt_string_start = start.strftime("%d/%m/%Y %H:%M:%S")
+	dt_string_end = end.strftime("%d/%m/%Y %H:%M:%S")
+	print(dt_string_start)
+	print(dt_string_end)
