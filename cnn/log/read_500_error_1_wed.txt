@@ -1,0 +1,693 @@
++----------------------------------------------------------------+
+|   Group Balance. Use 'sbalance' or 'sbalance -f' to see more   |
++-----------+---------------+---------------+---------+----------+
+|   Account | User/NumUsers | Allocation(h) | Used(h) | Usage(%) |
++-----------+---------------+---------------+---------+----------+
+| abattle4* |            38 |        250000 |   31391 |    12.56 |
+|  mschatz1 |            40 |        600000 |   20866 |     3.48 |
++-----------+---------------+---------------+---------+----------+
++--------------------------------------------+
+|  $HOME quota: login is disabled when full  |
++-------------+-------------+----------------+
+|    Usage GB |      Max GB |   Last Updated |
++-------------+-------------+----------------+
+|       2.274 |      50.000 |        11:44AM |
++-------------+-------------+----------------+
++--------------------------------------------------------------------------------------------+
+|   Scratch quota: group mschatz1. Last Update: 10:01AM. Use 'scratchquota -f' to see more   |
++------------------------+----------------+----------------+----------------+----------------+
+|         Group/Username |       Usage TB |         Max TB |          Files |      Max Files |
++------------------------+----------------+----------------+----------------+----------------+
+|               mschatz1 |         43.159 |         90.000 |       86674941 |      314572800 |
+|       xwang145@jhu.edu |          0.198 |              - |           6974 |              - |
++------------------------+----------------+----------------+----------------+----------------+
+(3.7.4)[xwang145@jhu.edu@bc-login01 ~]$ cd ~/code/MetagenomicsCNN/cnn/
+(3.7.4)[xwang145@jhu.edu@bc-login01 cnn]$ git pull
+Already up-to-date.
+(3.7.4)[xwang145@jhu.edu@bc-login01 cnn]$ history | grep gpu
+  148  squeue | grep gpuk80
+  149  squeue | grep gpuk80 | less
+  150  squeue | grep gpup100 | less
+  156  interact -n 6 -p gpuk80 -g 1
+  158  interact -n 6 -p gpuk80 -g 1
+  159  interact -n 6 -t 1:0:0 -p gpuk80 -g 1
+  160  interact -n 2 -c 6 -t 1:0:0 -p gpuk80 -g 2
+  161  interact -n 2 -c 6 -t 0:30:0 -p gpuk80 -g 2
+  162  interact -c 12 -t 6:0:0 -p gpup100
+  164  interact -c 12 -t 6:0:0 -p gpup100 -g 1
+  437  squeue | grep gpuk80 | less
+  438  squeue | grep gpup100 | less
+  439  squeue | grep gpuv100 | less
+  456  tmux attach-session -t gpu
+  476  tmux attach-session -t gpu
+  503  tmux new -s gpu
+  506  tmux attach-session -t gpu
+  538  tmux attach-session -t gpu
+  542  tmux  attach-session -t gpu
+  580  tmux attach-session -t gpu
+  596  tmux attach-session -t gpu
+  638  tmux attach-session -t gpu
+  646  tmux attach-session -t gpu
+  939  history | grep gpuk80
+  940  interact -n 6 -t 2:0:0 -p gpuk80 -g 1
+  949  interact -n 6 -t 2:0:0 -p gpuk80 -g 1
+  972  squeue | grep gpuk80
+  973  squeue | grep gpuk80 | less
+  975  squeue | grep gpuk80 | less
+ 1002  history | grep gpu
+(3.7.4)[xwang145@jhu.edu@bc-login01 cnn]$ interact -n 6 -t 13:0:0 -p gpuk80 -g 1
+Tasks:    6
+Cores/task: 1
+Total cores: 6
+Walltime: 13:0:0
+Reservation:
+Queue:    gpuk80
+Command submitted: salloc -J interact -N 1-1 -n 6 --time=13:0:0 --gres=gpu:1 -p gpuk80 srun --pty bash
+salloc: Pending job allocation 44197799
+salloc: job 44197799 queued and waiting for resources
+salloc: job 44197799 has been allocated resources
+salloc: Granted job allocation 44197799
++----------------------------------------------------------------+
+|   Group Balance. Use 'sbalance' or 'sbalance -f' to see more   |
++-----------+---------------+---------------+---------+----------+
+|   Account | User/NumUsers | Allocation(h) | Used(h) | Usage(%) |
++-----------+---------------+---------------+---------+----------+
+| abattle4* |            38 |        250000 |   31385 |    12.55 |
+|  mschatz1 |            40 |        600000 |   20862 |     3.48 |
++-----------+---------------+---------------+---------+----------+
++--------------------------------------------+
+|  $HOME quota: login is disabled when full  |
++-------------+-------------+----------------+
+|    Usage GB |      Max GB |   Last Updated |
++-------------+-------------+----------------+
+|       2.274 |      50.000 |        11:44AM |
++-------------+-------------+----------------+
++--------------------------------------------------------------------------------------------+
+|   Scratch quota: group mschatz1. Last Update: 10:01AM. Use 'scratchquota -f' to see more   |
++------------------------+----------------+----------------+----------------+----------------+
+|         Group/Username |       Usage TB |         Max TB |          Files |      Max Files |
++------------------------+----------------+----------------+----------------+----------------+
+|               mschatz1 |         43.159 |         90.000 |       86674941 |      314572800 |
+|       xwang145@jhu.edu |          0.198 |              - |           6974 |              - |
++------------------------+----------------+----------------+----------------+----------------+
+(3.7.4)[xwang145@jhu.edu@gpu007 cnn]$ module restore mymodules
+Restoring modules from user's mymodules
+(3.7.4)[xwang145@jhu.edu@gpu007 cnn]$ ls ..
+cnn  data  environment.yml  get_reads  histo  read2array  README.md
+(3.7.4)[xwang145@jhu.edu@gpu007 cnn]$ ~/.conda/envs/metagenomics/bin/python train.py /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/long_reads/read_500_error_1
+
+--Model output will be saved in--
+/home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1
+Opening long reads file: NC_004113.reads.500bp.fa
+Opening long reads file: NC_020246.reads.500bp.fa
+Opening long reads file: NC_023013.reads.500bp.fa
+Opening long reads file: NC_014374.reads.500bp.fa
+Opening long reads file: NC_014494.reads.500bp.fa
+Opening long reads file: NC_008698.reads.500bp.fa
+Opening long reads file: NC_009515.reads.500bp.fa
+Opening long reads file: NC_018621.reads.500bp.fa
+Opening long reads file: NZ_LN832404.reads.500bp.fa
+Opening long reads file: NC_010117.reads.500bp.fa
+13/05/2020 10:30:18 [1,  2000] loss: 1.847
+13/05/2020 10:31:53 [1,  4000] loss: 1.566
+13/05/2020 10:33:29 [1,  6000] loss: 1.484
+13/05/2020 10:35:04 [1,  8000] loss: 1.491
+13/05/2020 10:36:39 [1, 10000] loss: 1.410
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_9999.pth
+^Bd13/05/2020 10:38:14 [1, 12000] loss: 1.346
+13/05/2020 10:39:49 [1, 14000] loss: 1.328
+13/05/2020 10:41:24 [1, 16000] loss: 1.306
+13/05/2020 10:43:00 [1, 18000] loss: 1.268
+13/05/2020 10:44:36 [1, 20000] loss: 1.226
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_19999.pth
+13/05/2020 10:46:11 [1, 22000] loss: 1.224
+13/05/2020 10:47:47 [1, 24000] loss: 1.226
+13/05/2020 10:49:24 [1, 26000] loss: 1.209
+13/05/2020 10:51:00 [1, 28000] loss: 1.184
+13/05/2020 10:52:36 [1, 30000] loss: 1.189
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_29999.pth
+13/05/2020 10:54:12 [1, 32000] loss: 1.138
+13/05/2020 10:55:48 [1, 34000] loss: 1.162
+13/05/2020 10:57:24 [1, 36000] loss: 1.142
+13/05/2020 10:59:00 [1, 38000] loss: 1.142
+13/05/2020 11:00:36 [1, 40000] loss: 1.130
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_39999.pth
+13/05/2020 11:02:12 [1, 42000] loss: 1.120
+13/05/2020 11:03:48 [1, 44000] loss: 1.113
+13/05/2020 11:05:24 [1, 46000] loss: 1.110
+13/05/2020 11:07:00 [1, 48000] loss: 1.107
+13/05/2020 11:08:36 [1, 50000] loss: 1.090
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_49999.pth
+13/05/2020 11:10:12 [1, 52000] loss: 1.085
+13/05/2020 11:11:47 [1, 54000] loss: 1.090
+13/05/2020 11:13:23 [1, 56000] loss: 1.058
+13/05/2020 11:14:58 [1, 58000] loss: 1.060
+13/05/2020 11:16:34 [1, 60000] loss: 1.046
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_59999.pth
+13/05/2020 11:18:10 [1, 62000] loss: 1.052
+13/05/2020 11:19:45 [1, 64000] loss: 1.039
+13/05/2020 11:21:21 [1, 66000] loss: 1.058
+13/05/2020 11:22:56 [1, 68000] loss: 1.028
+13/05/2020 11:24:32 [1, 70000] loss: 1.035
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_69999.pth
+13/05/2020 11:26:07 [1, 72000] loss: 1.049
+13/05/2020 11:27:43 [1, 74000] loss: 1.002
+13/05/2020 11:29:18 [1, 76000] loss: 1.003
+13/05/2020 11:30:54 [1, 78000] loss: 1.025
+13/05/2020 11:32:29 [1, 80000] loss: 1.022
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_79999.pth
+13/05/2020 11:34:05 [1, 82000] loss: 1.018
+13/05/2020 11:35:41 [1, 84000] loss: 1.032
+13/05/2020 11:37:17 [1, 86000] loss: 1.002
+13/05/2020 11:38:53 [1, 88000] loss: 1.009
+13/05/2020 11:40:28 [1, 90000] loss: 0.988
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_89999.pth
+13/05/2020 11:42:04 [1, 92000] loss: 1.009
+13/05/2020 11:43:39 [1, 94000] loss: 1.009
+13/05/2020 11:45:15 [1, 96000] loss: 1.000
+13/05/2020 11:46:51 [1, 98000] loss: 0.999
+13/05/2020 11:48:27 [1, 100000] loss: 0.978
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_99999.pth
+13/05/2020 11:50:04 [1, 102000] loss: 0.988
+13/05/2020 11:51:40 [1, 104000] loss: 0.987
+13/05/2020 11:53:16 [1, 106000] loss: 0.972
+13/05/2020 11:54:51 [1, 108000] loss: 0.991
+13/05/2020 11:56:27 [1, 110000] loss: 0.962
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_109999.pth
+13/05/2020 11:58:04 [1, 112000] loss: 0.979
+13/05/2020 11:59:39 [1, 114000] loss: 0.951
+13/05/2020 12:01:15 [1, 116000] loss: 0.961
+13/05/2020 12:02:51 [1, 118000] loss: 0.977
+13/05/2020 12:04:27 [1, 120000] loss: 0.954
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_119999.pth
+13/05/2020 12:06:03 [1, 122000] loss: 0.965
+13/05/2020 12:07:39 [1, 124000] loss: 0.953
+13/05/2020 12:09:13 [1, 126000] loss: 0.960
+13/05/2020 12:10:46 [1, 128000] loss: 0.982
+13/05/2020 12:12:20 [1, 130000] loss: 0.938
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_129999.pth
+13/05/2020 12:13:54 [1, 132000] loss: 0.944
+13/05/2020 12:15:29 [1, 134000] loss: 0.975
+13/05/2020 12:17:04 [1, 136000] loss: 0.937
+13/05/2020 12:18:38 [1, 138000] loss: 0.943
+13/05/2020 12:20:13 [1, 140000] loss: 0.962
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_139999.pth
+13/05/2020 12:21:49 [1, 142000] loss: 0.944
+13/05/2020 12:23:24 [1, 144000] loss: 0.952
+13/05/2020 12:24:59 [1, 146000] loss: 0.947
+13/05/2020 12:26:34 [1, 148000] loss: 0.945
+13/05/2020 12:28:08 [1, 150000] loss: 0.960
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_149999.pth
+13/05/2020 12:29:44 [1, 152000] loss: 0.945
+13/05/2020 12:31:19 [1, 154000] loss: 0.948
+13/05/2020 12:32:54 [1, 156000] loss: 0.903
+13/05/2020 12:34:29 [1, 158000] loss: 0.948
+13/05/2020 12:36:04 [1, 160000] loss: 0.930
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_159999.pth
+13/05/2020 12:37:39 [1, 162000] loss: 0.914
+13/05/2020 12:39:14 [1, 164000] loss: 0.935
+13/05/2020 12:40:49 [1, 166000] loss: 0.925
+13/05/2020 12:42:24 [1, 168000] loss: 0.896
+13/05/2020 12:43:59 [1, 170000] loss: 0.915
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_169999.pth
+13/05/2020 12:45:35 [1, 172000] loss: 0.952
+13/05/2020 12:47:10 [1, 174000] loss: 0.943
+13/05/2020 12:48:45 [1, 176000] loss: 0.912
+13/05/2020 12:50:20 [1, 178000] loss: 0.930
+13/05/2020 12:51:55 [1, 180000] loss: 0.934
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_179999.pth
+13/05/2020 12:53:31 [1, 182000] loss: 0.910
+13/05/2020 12:55:06 [1, 184000] loss: 0.907
+13/05/2020 12:56:40 [1, 186000] loss: 0.912
+13/05/2020 12:58:16 [1, 188000] loss: 0.906
+13/05/2020 12:59:51 [1, 190000] loss: 0.902
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_189999.pth
+13/05/2020 13:01:26 [1, 192000] loss: 0.910
+13/05/2020 13:03:01 [1, 194000] loss: 0.918
+13/05/2020 13:04:37 [1, 196000] loss: 0.895
+13/05/2020 13:06:12 [1, 198000] loss: 0.902
+13/05/2020 13:07:47 [1, 200000] loss: 0.880
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_199999.pth
+13/05/2020 13:09:23 [1, 202000] loss: 0.901
+13/05/2020 13:10:58 [1, 204000] loss: 0.878
+13/05/2020 13:12:33 [1, 206000] loss: 0.912
+13/05/2020 13:14:08 [1, 208000] loss: 0.881
+13/05/2020 13:15:43 [1, 210000] loss: 0.894
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_209999.pth
+13/05/2020 13:17:19 [1, 212000] loss: 0.877
+13/05/2020 13:18:54 [1, 214000] loss: 0.891
+13/05/2020 13:20:29 [1, 216000] loss: 0.917
+13/05/2020 13:22:04 [1, 218000] loss: 0.897
+13/05/2020 13:23:39 [1, 220000] loss: 0.876
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_219999.pth
+13/05/2020 13:25:15 [1, 222000] loss: 0.888
+13/05/2020 13:26:50 [1, 224000] loss: 0.899
+13/05/2020 13:28:25 [1, 226000] loss: 0.868
+13/05/2020 13:30:00 [1, 228000] loss: 0.873
+13/05/2020 13:31:35 [1, 230000] loss: 0.890
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_229999.pth
+13/05/2020 13:33:11 [1, 232000] loss: 0.897
+13/05/2020 13:34:46 [1, 234000] loss: 0.888
+13/05/2020 13:36:21 [1, 236000] loss: 0.884
+13/05/2020 13:37:57 [1, 238000] loss: 0.884
+13/05/2020 13:39:32 [1, 240000] loss: 0.869
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_239999.pth
+13/05/2020 13:41:08 [1, 242000] loss: 0.862
+13/05/2020 13:42:43 [1, 244000] loss: 0.881
+13/05/2020 13:44:18 [1, 246000] loss: 0.867
+13/05/2020 13:45:53 [1, 248000] loss: 0.891
+13/05/2020 13:47:29 [1, 250000] loss: 0.881
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_249999.pth
+13/05/2020 13:49:05 [1, 252000] loss: 0.883
+13/05/2020 13:50:40 [1, 254000] loss: 0.869
+13/05/2020 13:52:15 [1, 256000] loss: 0.890
+13/05/2020 13:53:50 [1, 258000] loss: 0.850
+13/05/2020 13:55:25 [1, 260000] loss: 0.905
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_259999.pth
+13/05/2020 13:57:01 [1, 262000] loss: 0.870
+13/05/2020 13:58:36 [1, 264000] loss: 0.851
+13/05/2020 14:00:12 [1, 266000] loss: 0.872
+13/05/2020 14:01:47 [1, 268000] loss: 0.889
+13/05/2020 14:03:22 [1, 270000] loss: 0.859
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_269999.pth
+13/05/2020 14:04:58 [1, 272000] loss: 0.870
+13/05/2020 14:06:33 [1, 274000] loss: 0.854
+13/05/2020 14:08:09 [1, 276000] loss: 0.866
+13/05/2020 14:09:44 [1, 278000] loss: 0.854
+13/05/2020 14:11:19 [1, 280000] loss: 0.858
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_279999.pth
+13/05/2020 14:12:55 [1, 282000] loss: 0.854
+13/05/2020 14:14:29 [1, 284000] loss: 0.874
+13/05/2020 14:16:04 [1, 286000] loss: 0.869
+13/05/2020 14:17:39 [1, 288000] loss: 0.857
+13/05/2020 14:19:14 [1, 290000] loss: 0.850
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_289999.pth
+13/05/2020 14:20:49 [1, 292000] loss: 0.857
+13/05/2020 14:22:24 [1, 294000] loss: 0.852
+13/05/2020 14:23:59 [1, 296000] loss: 0.864
+13/05/2020 14:25:34 [1, 298000] loss: 0.853
+13/05/2020 14:27:09 [1, 300000] loss: 0.831
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_299999.pth
+13/05/2020 14:28:44 [1, 302000] loss: 0.841
+13/05/2020 14:30:19 [1, 304000] loss: 0.833
+13/05/2020 14:31:54 [1, 306000] loss: 0.849
+13/05/2020 14:33:28 [1, 308000] loss: 0.841
+13/05/2020 14:35:03 [1, 310000] loss: 0.846
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_309999.pth
+13/05/2020 14:36:38 [1, 312000] loss: 0.860
+13/05/2020 14:38:13 [1, 314000] loss: 0.863
+13/05/2020 14:39:48 [1, 316000] loss: 0.830
+13/05/2020 14:41:23 [1, 318000] loss: 0.852
+13/05/2020 14:42:58 [1, 320000] loss: 0.842
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_319999.pth
+13/05/2020 14:44:33 [1, 322000] loss: 0.828
+13/05/2020 14:46:08 [1, 324000] loss: 0.841
+13/05/2020 14:47:43 [1, 326000] loss: 0.854
+13/05/2020 14:49:18 [1, 328000] loss: 0.826
+13/05/2020 14:50:53 [1, 330000] loss: 0.849
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_329999.pth
+13/05/2020 14:52:30 [1, 332000] loss: 0.844
+13/05/2020 14:54:06 [1, 334000] loss: 0.822
+13/05/2020 14:55:42 [1, 336000] loss: 0.853
+13/05/2020 14:57:18 [1, 338000] loss: 0.839
+13/05/2020 14:58:55 [1, 340000] loss: 0.843
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_339999.pth
+13/05/2020 15:00:32 [1, 342000] loss: 0.845
+13/05/2020 15:02:08 [1, 344000] loss: 0.815
+13/05/2020 15:03:44 [1, 346000] loss: 0.830
+13/05/2020 15:05:22 [1, 348000] loss: 0.855
+13/05/2020 15:07:00 [1, 350000] loss: 0.845
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_349999.pth
+q13/05/2020 15:08:37 [1, 352000] loss: 0.828
+13/05/2020 15:10:15 [1, 354000] loss: 0.815
+13/05/2020 15:11:52 [1, 356000] loss: 0.840
+13/05/2020 15:13:30 [1, 358000] loss: 0.829
+13/05/2020 15:15:10 [1, 360000] loss: 0.838
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_359999.pth
+13/05/2020 15:16:49 [1, 362000] loss: 0.815
+13/05/2020 15:18:29 [1, 364000] loss: 0.835
+13/05/2020 15:20:08 [1, 366000] loss: 0.827
+13/05/2020 15:21:48 [1, 368000] loss: 0.823
+13/05/2020 15:23:27 [1, 370000] loss: 0.824
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_369999.pth
+13/05/2020 15:25:06 [1, 372000] loss: 0.836
+13/05/2020 15:26:46 [1, 374000] loss: 0.814
+13/05/2020 15:28:26 [1, 376000] loss: 0.826
+13/05/2020 15:30:06 [1, 378000] loss: 0.826
+13/05/2020 15:31:45 [1, 380000] loss: 0.823
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_379999.pth
+13/05/2020 15:33:25 [1, 382000] loss: 0.829
+13/05/2020 15:35:04 [1, 384000] loss: 0.847
+13/05/2020 15:36:39 [1, 386000] loss: 0.791
+13/05/2020 15:38:15 [1, 388000] loss: 0.825
+13/05/2020 15:39:51 [1, 390000] loss: 0.824
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_389999.pth
+13/05/2020 15:41:27 [1, 392000] loss: 0.809
+13/05/2020 15:43:03 [1, 394000] loss: 0.818
+13/05/2020 15:44:39 [1, 396000] loss: 0.809
+13/05/2020 15:46:14 [1, 398000] loss: 0.825
+13/05/2020 15:47:50 [1, 400000] loss: 0.807
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_399999.pth
+13/05/2020 15:49:26 [1, 402000] loss: 0.833
+13/05/2020 15:51:02 [1, 404000] loss: 0.820
+13/05/2020 15:52:38 [1, 406000] loss: 0.817
+13/05/2020 15:54:14 [1, 408000] loss: 0.822
+13/05/2020 15:55:50 [1, 410000] loss: 0.809
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_409999.pth
+13/05/2020 15:57:26 [1, 412000] loss: 0.814
+13/05/2020 15:59:02 [1, 414000] loss: 0.818
+13/05/2020 16:00:37 [1, 416000] loss: 0.817
+13/05/2020 16:02:13 [1, 418000] loss: 0.808
+13/05/2020 16:03:49 [1, 420000] loss: 0.798
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_419999.pth
+13/05/2020 16:05:25 [1, 422000] loss: 0.804
+13/05/2020 16:06:59 [1, 424000] loss: 0.811
+13/05/2020 16:08:33 [1, 426000] loss: 0.796
+13/05/2020 16:10:07 [1, 428000] loss: 0.832
+13/05/2020 16:11:42 [1, 430000] loss: 0.810
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_429999.pth
+13/05/2020 16:13:16 [1, 432000] loss: 0.810
+13/05/2020 16:14:51 [1, 434000] loss: 0.809
+13/05/2020 16:16:26 [1, 436000] loss: 0.813
+13/05/2020 16:18:01 [1, 438000] loss: 0.797
+13/05/2020 16:19:36 [1, 440000] loss: 0.805
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_439999.pth
+13/05/2020 16:21:12 [1, 442000] loss: 0.822
+13/05/2020 16:22:46 [1, 444000] loss: 0.795
+13/05/2020 16:24:21 [1, 446000] loss: 0.819
+13/05/2020 16:25:56 [1, 448000] loss: 0.818
+13/05/2020 16:27:31 [1, 450000] loss: 0.824
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_0.i_449999.pth
+13/05/2020 16:29:07 [1, 452000] loss: 0.787
+13/05/2020 16:30:42 [1, 454000] loss: 0.809
+13/05/2020 16:32:17 [1, 456000] loss: 0.800
+13/05/2020 16:34:44 [2,  2000] loss: 0.664
+13/05/2020 16:36:21 [2,  4000] loss: 0.657
+13/05/2020 16:37:58 [2,  6000] loss: 0.669
+13/05/2020 16:39:35 [2,  8000] loss: 0.671
+13/05/2020 16:41:12 [2, 10000] loss: 0.660
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_9999.pth
+13/05/2020 16:42:49 [2, 12000] loss: 0.678
+13/05/2020 16:44:26 [2, 14000] loss: 0.658
+13/05/2020 16:46:04 [2, 16000] loss: 0.672
+13/05/2020 16:47:42 [2, 18000] loss: 0.659
+13/05/2020 16:49:20 [2, 20000] loss: 0.683
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_19999.pth
+13/05/2020 16:50:58 [2, 22000] loss: 0.662
+13/05/2020 16:52:37 [2, 24000] loss: 0.658
+13/05/2020 16:54:15 [2, 26000] loss: 0.679
+13/05/2020 16:55:55 [2, 28000] loss: 0.676
+13/05/2020 16:57:34 [2, 30000] loss: 0.682
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_29999.pth
+13/05/2020 16:59:13 [2, 32000] loss: 0.661
+13/05/2020 17:00:52 [2, 34000] loss: 0.672
+13/05/2020 17:02:30 [2, 36000] loss: 0.624
+13/05/2020 17:04:08 [2, 38000] loss: 0.676
+13/05/2020 17:05:48 [2, 40000] loss: 0.679
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_39999.pth
+13/05/2020 17:07:27 [2, 42000] loss: 0.675
+13/05/2020 17:09:07 [2, 44000] loss: 0.680
+13/05/2020 17:10:46 [2, 46000] loss: 0.663
+13/05/2020 17:12:25 [2, 48000] loss: 0.664
+13/05/2020 17:14:05 [2, 50000] loss: 0.680
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_49999.pth
+13/05/2020 17:15:45 [2, 52000] loss: 0.690
+13/05/2020 17:17:25 [2, 54000] loss: 0.692
+13/05/2020 17:19:05 [2, 56000] loss: 0.675
+13/05/2020 17:20:44 [2, 58000] loss: 0.681
+13/05/2020 17:22:24 [2, 60000] loss: 0.689
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_59999.pth
+13/05/2020 17:24:04 [2, 62000] loss: 0.661
+13/05/2020 17:25:44 [2, 64000] loss: 0.685
+13/05/2020 17:27:24 [2, 66000] loss: 0.687
+13/05/2020 17:29:03 [2, 68000] loss: 0.679
+13/05/2020 17:30:43 [2, 70000] loss: 0.684
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_69999.pth
+13/05/2020 17:32:22 [2, 72000] loss: 0.677
+13/05/2020 17:34:01 [2, 74000] loss: 0.677
+13/05/2020 17:35:39 [2, 76000] loss: 0.679
+13/05/2020 17:37:17 [2, 78000] loss: 0.704
+13/05/2020 17:38:54 [2, 80000] loss: 0.678
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_79999.pth
+13/05/2020 17:40:31 [2, 82000] loss: 0.674
+13/05/2020 17:42:07 [2, 84000] loss: 0.685
+13/05/2020 17:43:44 [2, 86000] loss: 0.671
+13/05/2020 17:45:20 [2, 88000] loss: 0.678
+13/05/2020 17:46:56 [2, 90000] loss: 0.692
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_89999.pth
+13/05/2020 17:48:32 [2, 92000] loss: 0.695
+13/05/2020 17:50:08 [2, 94000] loss: 0.710
+13/05/2020 17:51:44 [2, 96000] loss: 0.692
+13/05/2020 17:53:20 [2, 98000] loss: 0.669
+13/05/2020 17:54:55 [2, 100000] loss: 0.684
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_99999.pth
+13/05/2020 17:56:32 [2, 102000] loss: 0.702
+13/05/2020 17:58:07 [2, 104000] loss: 0.692
+13/05/2020 17:59:42 [2, 106000] loss: 0.688
+13/05/2020 18:01:18 [2, 108000] loss: 0.690
+13/05/2020 18:02:54 [2, 110000] loss: 0.692
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_109999.pth
+13/05/2020 18:04:30 [2, 112000] loss: 0.694
+13/05/2020 18:06:06 [2, 114000] loss: 0.725
+13/05/2020 18:07:43 [2, 116000] loss: 0.702
+13/05/2020 18:09:21 [2, 118000] loss: 0.691
+13/05/2020 18:11:01 [2, 120000] loss: 0.685
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_119999.pth
+13/05/2020 18:12:41 [2, 122000] loss: 0.709
+13/05/2020 18:14:21 [2, 124000] loss: 0.691
+13/05/2020 18:16:01 [2, 126000] loss: 0.700
+13/05/2020 18:17:40 [2, 128000] loss: 0.690
+13/05/2020 18:19:20 [2, 130000] loss: 0.711
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_129999.pth
+13/05/2020 18:21:00 [2, 132000] loss: 0.688
+13/05/2020 18:22:41 [2, 134000] loss: 0.669
+13/05/2020 18:24:18 [2, 136000] loss: 0.693
+13/05/2020 18:25:56 [2, 138000] loss: 0.689
+13/05/2020 18:27:36 [2, 140000] loss: 0.704
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_139999.pth
+13/05/2020 18:29:16 [2, 142000] loss: 0.688
+13/05/2020 18:30:56 [2, 144000] loss: 0.693
+13/05/2020 18:32:36 [2, 146000] loss: 0.704
+13/05/2020 18:34:16 [2, 148000] loss: 0.692
+13/05/2020 18:35:55 [2, 150000] loss: 0.702
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_149999.pth
+13/05/2020 18:37:35 [2, 152000] loss: 0.690
+13/05/2020 18:39:15 [2, 154000] loss: 0.679
+13/05/2020 18:40:55 [2, 156000] loss: 0.686
+13/05/2020 18:42:34 [2, 158000] loss: 0.684
+13/05/2020 18:44:11 [2, 160000] loss: 0.688
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_159999.pth
+13/05/2020 18:45:47 [2, 162000] loss: 0.702
+13/05/2020 18:47:21 [2, 164000] loss: 0.695
+13/05/2020 18:48:56 [2, 166000] loss: 0.699
+13/05/2020 18:50:31 [2, 168000] loss: 0.684
+13/05/2020 18:52:05 [2, 170000] loss: 0.715
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_169999.pth
+13/05/2020 18:53:40 [2, 172000] loss: 0.703
+^[[B^[[B^[[A13/05/2020 18:55:15 [2, 174000] loss: 0.688
+13/05/2020 18:56:50 [2, 176000] loss: 0.710
+13/05/2020 18:58:24 [2, 178000] loss: 0.706
+13/05/2020 18:59:59 [2, 180000] loss: 0.711
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_179999.pth
+13/05/2020 19:01:34 [2, 182000] loss: 0.699
+13/05/2020 19:03:09 [2, 184000] loss: 0.696
+13/05/2020 19:04:44 [2, 186000] loss: 0.706
+13/05/2020 19:06:18 [2, 188000] loss: 0.702
+13/05/2020 19:07:53 [2, 190000] loss: 0.685
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_189999.pth
+13/05/2020 19:09:28 [2, 192000] loss: 0.684
+13/05/2020 19:11:03 [2, 194000] loss: 0.702
+13/05/2020 19:12:37 [2, 196000] loss: 0.704
+13/05/2020 19:14:12 [2, 198000] loss: 0.689
+13/05/2020 19:15:47 [2, 200000] loss: 0.701
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_199999.pth
+13/05/2020 19:17:22 [2, 202000] loss: 0.705
+13/05/2020 19:18:57 [2, 204000] loss: 0.711
+13/05/2020 19:20:32 [2, 206000] loss: 0.690
+13/05/2020 19:22:07 [2, 208000] loss: 0.702
+13/05/2020 19:23:42 [2, 210000] loss: 0.690
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_209999.pth
+13/05/2020 19:25:17 [2, 212000] loss: 0.695
+13/05/2020 19:26:52 [2, 214000] loss: 0.700
+13/05/2020 19:28:27 [2, 216000] loss: 0.714
+13/05/2020 19:30:01 [2, 218000] loss: 0.731
+13/05/2020 19:31:36 [2, 220000] loss: 0.693
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_219999.pth
+13/05/2020 19:33:11 [2, 222000] loss: 0.697
+13/05/2020 19:34:46 [2, 224000] loss: 0.693
+13/05/2020 19:36:21 [2, 226000] loss: 0.715
+13/05/2020 19:37:56 [2, 228000] loss: 0.701
+13/05/2020 19:39:31 [2, 230000] loss: 0.703
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_229999.pth
+13/05/2020 19:41:06 [2, 232000] loss: 0.706
+13/05/2020 19:42:41 [2, 234000] loss: 0.707
+13/05/2020 19:44:16 [2, 236000] loss: 0.706
+13/05/2020 19:45:51 [2, 238000] loss: 0.700
+13/05/2020 19:47:26 [2, 240000] loss: 0.697
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_239999.pth
+13/05/2020 19:49:01 [2, 242000] loss: 0.720
+13/05/2020 19:50:37 [2, 244000] loss: 0.699
+13/05/2020 19:52:11 [2, 246000] loss: 0.697
+13/05/2020 19:53:47 [2, 248000] loss: 0.711
+13/05/2020 19:55:22 [2, 250000] loss: 0.712
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_249999.pth
+13/05/2020 19:56:57 [2, 252000] loss: 0.718
+13/05/2020 19:58:32 [2, 254000] loss: 0.713
+13/05/2020 20:00:07 [2, 256000] loss: 0.712
+13/05/2020 20:01:41 [2, 258000] loss: 0.710
+13/05/2020 20:03:16 [2, 260000] loss: 0.700
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_259999.pth
+13/05/2020 20:04:51 [2, 262000] loss: 0.723
+13/05/2020 20:06:25 [2, 264000] loss: 0.715
+13/05/2020 20:08:00 [2, 266000] loss: 0.694
+13/05/2020 20:09:35 [2, 268000] loss: 0.716
+13/05/2020 20:11:09 [2, 270000] loss: 0.693
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_269999.pth
+13/05/2020 20:12:45 [2, 272000] loss: 0.714
+13/05/2020 20:14:20 [2, 274000] loss: 0.723
+13/05/2020 20:15:55 [2, 276000] loss: 0.692
+13/05/2020 20:17:30 [2, 278000] loss: 0.684
+13/05/2020 20:19:05 [2, 280000] loss: 0.728
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_279999.pth
+13/05/2020 20:20:40 [2, 282000] loss: 0.705
+13/05/2020 20:22:15 [2, 284000] loss: 0.720
+13/05/2020 20:23:50 [2, 286000] loss: 0.725
+13/05/2020 20:25:25 [2, 288000] loss: 0.715
+13/05/2020 20:26:59 [2, 290000] loss: 0.693
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_289999.pth
+13/05/2020 20:28:35 [2, 292000] loss: 0.710
+13/05/2020 20:30:10 [2, 294000] loss: 0.709
+13/05/2020 20:31:44 [2, 296000] loss: 0.713
+13/05/2020 20:33:19 [2, 298000] loss: 0.707
+13/05/2020 20:34:54 [2, 300000] loss: 0.715
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_299999.pth
+13/05/2020 20:36:29 [2, 302000] loss: 0.717
+13/05/2020 20:38:04 [2, 304000] loss: 0.720
+13/05/2020 20:39:39 [2, 306000] loss: 0.717
+13/05/2020 20:41:14 [2, 308000] loss: 0.732
+13/05/2020 20:42:48 [2, 310000] loss: 0.718
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_309999.pth
+13/05/2020 20:44:24 [2, 312000] loss: 0.718
+13/05/2020 20:45:58 [2, 314000] loss: 0.694
+13/05/2020 20:47:33 [2, 316000] loss: 0.718
+13/05/2020 20:49:08 [2, 318000] loss: 0.712
+13/05/2020 20:50:43 [2, 320000] loss: 0.701
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_319999.pth
+13/05/2020 20:52:18 [2, 322000] loss: 0.718
+13/05/2020 20:53:53 [2, 324000] loss: 0.721
+13/05/2020 20:55:27 [2, 326000] loss: 0.724
+13/05/2020 20:57:02 [2, 328000] loss: 0.717
+13/05/2020 20:58:37 [2, 330000] loss: 0.708
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_329999.pth
+13/05/2020 21:00:12 [2, 332000] loss: 0.700
+13/05/2020 21:01:47 [2, 334000] loss: 0.711
+13/05/2020 21:03:22 [2, 336000] loss: 0.709
+13/05/2020 21:04:57 [2, 338000] loss: 0.731
+13/05/2020 21:06:32 [2, 340000] loss: 0.716
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_339999.pth
+13/05/2020 21:08:07 [2, 342000] loss: 0.705
+13/05/2020 21:09:42 [2, 344000] loss: 0.715
+13/05/2020 21:11:16 [2, 346000] loss: 0.730
+13/05/2020 21:12:51 [2, 348000] loss: 0.714
+13/05/2020 21:14:26 [2, 350000] loss: 0.715
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_349999.pth
+13/05/2020 21:16:01 [2, 352000] loss: 0.713
+13/05/2020 21:17:36 [2, 354000] loss: 0.716
+13/05/2020 21:19:11 [2, 356000] loss: 0.718
+13/05/2020 21:20:46 [2, 358000] loss: 0.718
+13/05/2020 21:22:21 [2, 360000] loss: 0.709
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_359999.pth
+13/05/2020 21:23:56 [2, 362000] loss: 0.698
+13/05/2020 21:25:31 [2, 364000] loss: 0.711
+13/05/2020 21:27:05 [2, 366000] loss: 0.693
+13/05/2020 21:28:40 [2, 368000] loss: 0.728
+13/05/2020 21:30:15 [2, 370000] loss: 0.731
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_369999.pth
+13/05/2020 21:31:50 [2, 372000] loss: 0.736
+13/05/2020 21:33:25 [2, 374000] loss: 0.722
+13/05/2020 21:35:00 [2, 376000] loss: 0.730
+13/05/2020 21:36:35 [2, 378000] loss: 0.724
+13/05/2020 21:38:15 [2, 380000] loss: 0.723
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_379999.pth
+13/05/2020 21:39:55 [2, 382000] loss: 0.729
+13/05/2020 21:41:35 [2, 384000] loss: 0.719
+13/05/2020 21:43:15 [2, 386000] loss: 0.733
+13/05/2020 21:44:55 [2, 388000] loss: 0.701
+13/05/2020 21:46:35 [2, 390000] loss: 0.698
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_389999.pth
+13/05/2020 21:48:15 [2, 392000] loss: 0.724
+13/05/2020 21:49:54 [2, 394000] loss: 0.729
+13/05/2020 21:51:34 [2, 396000] loss: 0.715
+13/05/2020 21:53:13 [2, 398000] loss: 0.713
+13/05/2020 21:54:53 [2, 400000] loss: 0.725
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_399999.pth
+13/05/2020 21:56:33 [2, 402000] loss: 0.712
+13/05/2020 21:58:13 [2, 404000] loss: 0.698
+13/05/2020 21:59:53 [2, 406000] loss: 0.727
+13/05/2020 22:01:33 [2, 408000] loss: 0.712
+13/05/2020 22:03:12 [2, 410000] loss: 0.706
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_409999.pth
+13/05/2020 22:04:53 [2, 412000] loss: 0.708
+13/05/2020 22:06:33 [2, 414000] loss: 0.712
+13/05/2020 22:08:12 [2, 416000] loss: 0.718
+13/05/2020 22:09:52 [2, 418000] loss: 0.713
+13/05/2020 22:11:32 [2, 420000] loss: 0.726
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_419999.pth
+13/05/2020 22:13:12 [2, 422000] loss: 0.731
+13/05/2020 22:14:52 [2, 424000] loss: 0.708
+13/05/2020 22:16:32 [2, 426000] loss: 0.730
+13/05/2020 22:18:12 [2, 428000] loss: 0.712
+13/05/2020 22:19:52 [2, 430000] loss: 0.716
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_429999.pth
+13/05/2020 22:21:31 [2, 432000] loss: 0.706
+13/05/2020 22:23:11 [2, 434000] loss: 0.743
+13/05/2020 22:24:51 [2, 436000] loss: 0.695
+13/05/2020 22:26:31 [2, 438000] loss: 0.725
+13/05/2020 22:28:11 [2, 440000] loss: 0.736
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_439999.pth
+13/05/2020 22:29:51 [2, 442000] loss: 0.728
+13/05/2020 22:31:31 [2, 444000] loss: 0.708
+13/05/2020 22:33:10 [2, 446000] loss: 0.719
+13/05/2020 22:34:50 [2, 448000] loss: 0.722
+13/05/2020 22:36:30 [2, 450000] loss: 0.707
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_1.i_449999.pth
+13/05/2020 22:38:10 [2, 452000] loss: 0.723
+13/05/2020 22:39:50 [2, 454000] loss: 0.725
+13/05/2020 22:41:30 [2, 456000] loss: 0.740
+13/05/2020 22:44:00 [3,  2000] loss: 0.491
+13/05/2020 22:45:35 [3,  4000] loss: 0.484
+13/05/2020 22:47:11 [3,  6000] loss: 0.494
+13/05/2020 22:48:46 [3,  8000] loss: 0.480
+13/05/2020 22:50:22 [3, 10000] loss: 0.491
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_2.i_9999.pth
+13/05/2020 22:51:58 [3, 12000] loss: 0.489
+13/05/2020 22:53:33 [3, 14000] loss: 0.479
+13/05/2020 22:55:09 [3, 16000] loss: 0.490
+13/05/2020 22:56:45 [3, 18000] loss: 0.483
+13/05/2020 22:58:21 [3, 20000] loss: 0.492
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_2.i_19999.pth
+13/05/2020 22:59:57 [3, 22000] loss: 0.484
+13/05/2020 23:01:33 [3, 24000] loss: 0.488
+13/05/2020 23:03:09 [3, 26000] loss: 0.510
+13/05/2020 23:04:44 [3, 28000] loss: 0.501
+13/05/2020 23:06:20 [3, 30000] loss: 0.498
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_2.i_29999.pth
+13/05/2020 23:07:56 [3, 32000] loss: 0.492
+13/05/2020 23:09:32 [3, 34000] loss: 0.488
+13/05/2020 23:11:08 [3, 36000] loss: 0.486
+13/05/2020 23:12:44 [3, 38000] loss: 0.510
+13/05/2020 23:14:20 [3, 40000] loss: 0.496
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_2.i_39999.pth
+13/05/2020 23:15:56 [3, 42000] loss: 0.518
+13/05/2020 23:17:32 [3, 44000] loss: 0.490
+13/05/2020 23:19:08 [3, 46000] loss: 0.500
+13/05/2020 23:20:44 [3, 48000] loss: 0.515
+13/05/2020 23:22:19 [3, 50000] loss: 0.501
+Saved: /home-4/xwang145@jhu.edu/workzfs-mschatz1/xwang145/data/cnn/read_500_error_1/cnn_epoch_2.i_49999.pth
+13/05/2020 23:23:55 [3, 52000] loss: 0.496
+salloc: Job 44197799 has exceeded its time limit and its allocation has been revoked.
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+srun: error: gpu007: task 0: Killed
+srun: Terminating job step 44197799.0
+srun: error: Timed out waiting for job step to complete
+(3.7.4)[xwang145@jhu.edu@bc-login01 cnn]$
